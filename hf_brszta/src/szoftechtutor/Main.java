@@ -64,8 +64,16 @@ public class Main {
         
         window.addMouseMotionListener(faltoro); // egér mûködtetése
         window.addMouseListener(faltoro);
-        Timer timer = new Timer(4, faltoro); // ciklikus lefutás
+        Timer timer = new Timer(faltoro.jatek_sebessege, faltoro); // ciklikus lefutás
         timer.start();
+        
+        // Téglák állapotát jelzõ 2D tömb feltöltése
+        for(int i = 0; i<5; ++i){
+        	for(int j = 0; j<6; ++j) {
+        			//if(j==3 && i==3)
+        			faltoro.destroyed[i][j] = true;
+        	}
+        }
         
 	}
 }

@@ -21,18 +21,38 @@ public class faltoro extends JComponent implements ActionListener, MouseListener
 	
 	// Változók inicializálása 
 	public int state = 0;
+	public int jatek_sebessege = 1; // 0...4
 	public int labda_sebesseg_x = 0;
 	public int labda_sebesseg_y = 0;
 	public int labda_poz_x = 480;
 	public int labda_poz_y = 640;
 	public int labda_size = 24;
+	public int labda_x = labda_poz_x+(labda_size/2); // labda középpontjának x pozíciója
+	public int labda_y = labda_poz_y+(labda_size/2); // labda középpontjának y pozíciója
+	public int labda_r = labda_size/2; // labda sugara
 	public int uto_size_x = 150;
 	public int uto_size_y = 20;
 	public int uto_poz = 426;
+	public int tegla_eltolas_x = 50;
+	public int tegla_eltolas_y = 20;
+	public int tegla_tavolsag_x = 130; //120
+	public int tegla_tavolsag_y = 30; // 20
+	public int tegla_szelesseg = 80;
+	public int tegla_magassag = 40;
+	public static boolean[][] destroyed = new boolean[5][6];
 	public boolean click = true;
+	
+	
 	
 	@Override
     protected void paintComponent(Graphics faltoro) {
+		/*for(int i = 0; i<5; ++i){
+        	for(int j = 0; j<6; ++j) {
+        			//if(j==3 && i==3)
+        			destroyed[i][j] = true;
+        	}
+        }*/
+		
 		// labda
 		faltoro.setColor(Color.cyan); // labda színének beállítása
         faltoro.fillOval(labda_poz_x, labda_poz_y, labda_size, labda_size);
@@ -45,22 +65,29 @@ public class faltoro extends JComponent implements ActionListener, MouseListener
         faltoro.fillRect(uto_poz, 668, uto_size_x, uto_size_y);
         // téglák
         // j-> sorok száma    i-> oszlopok száma
-        for(int j = 0; j<5; ++j){
-        	for(int i = 0; i<10; ++i) {
-        		faltoro.setColor(Color.black);
-        		faltoro.fillRect(100*i+20,30*j+5,40,20);
+        for(int i = 0; i<5; ++i){
+        	for(int j = 0; j<6; ++j) {
+        		if(destroyed[i][j] == true){
+        			
+        			//faltoro.setColor(Color.red);
+        			//faltoro.fillRect((tegla_szelesseg+tegla_tavolsag_x)*i+tegla_eltolas_x-labda_r,(tegla_magassag+tegla_tavolsag_y)*j+tegla_eltolas_y-labda_r,104,64);
+        			
+        			faltoro.setColor(Color.black);
+        			faltoro.fillRect((tegla_szelesseg+tegla_tavolsag_x)*i+tegla_eltolas_x,(tegla_magassag+tegla_tavolsag_y)*j+tegla_eltolas_y,tegla_szelesseg,tegla_magassag);
+        		}
         	}
         }
 	}
 
 	
 	
-	
-	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		labda_poz_x = labda_poz_x + labda_sebesseg_x;
 		labda_poz_y = labda_poz_y + labda_sebesseg_y;
+		labda_x = labda_poz_x+(labda_size/2); // labda középpontjának x pozíciója
+		labda_y = labda_poz_y+(labda_size/2); // labda középpontjának y pozíciója
+		labda_r = labda_size/2; // labda sugara
 		
 		// leesett a labda
 		if(labda_poz_y > 680){
@@ -69,33 +96,40 @@ public class faltoro extends JComponent implements ActionListener, MouseListener
 			labda_poz_y = 640;
 			labda_sebesseg_y = 0;
 			labda_sebesseg_x = 0;
-			click=true;// game over
+			click=true;
+			// -1 élet vagy game over
 		}
 		
 		// ütõt ért a labda
-		if((labda_poz_y >= 644) && (labda_poz_y <= 646) && (labda_poz_x >= (uto_poz-14)) && (labda_poz_x <= (uto_poz+uto_size_x+14))){
-						
-			// ha az ütõ jobb szélét érte a labda
-			if(((labda_poz_x - uto_poz) >= 110)){
-				labda_sebesseg_y = -1;
-				labda_sebesseg_x = 3;	
-			}
+		if((labda_poz_y == 645) && (labda_poz_x >= (uto_poz-14)) && (labda_poz_x <= (uto_poz+uto_size_x+14))){
+
+            if (labda_poz_x < (uto_poz + 30)) {
+            	labda_sebesseg_x = -1;
+            	labda_sebesseg_y = -1;
+            }
+
+            if (labda_poz_x >= (uto_poz + 30) && labda_poz_x < (uto_poz + 60)) {
+            	labda_sebesseg_x = -1;
+            	labda_sebesseg_y = -1 * labda_sebesseg_y;
+            }
+
+            if (labda_poz_x >= (uto_poz + 60) && labda_poz_x < (uto_poz + 90)) {
+            	labda_sebesseg_x = 0;
+            	labda_sebesseg_y = -1;
+            }
+
+            if (labda_poz_x >= (uto_poz + 90) && labda_poz_x < (uto_poz + 120)) {
+            	labda_sebesseg_x = 1;
+            	labda_sebesseg_y = -1*labda_sebesseg_y;
+            }
+
+            if (labda_poz_x > (uto_poz + 120)) {
+            	labda_sebesseg_x = 1;
+            	labda_sebesseg_y = -1;
+            }
+
 			
-			// ha az ütõ bal szélét érte a labda
-			if((labda_poz_x - uto_poz) <= 35){
-				labda_sebesseg_y = -1;
-				labda_sebesseg_x = -3;
-			}
-			
-			// ha az ütõ közepét érte a labda
-			if((((labda_poz_x - uto_poz) > 35)) && ((labda_poz_x - uto_poz) < 110)){
-				int elojel_x = labda_sebesseg_x < 0 ? -1 : 1; // elõjel kinyerése
-				int elojel_y = labda_sebesseg_y < 0 ? 1 : -1; // elõjel változtatása
-				labda_sebesseg_y = elojel_y*2;
-				labda_sebesseg_x = elojel_x*2;
-			}
-						
-			labda_poz_y = labda_poz_y - 3;  // hogy azonnal eltávolodjon az ütõtõl
+			//labda_poz_y = labda_poz_y - 2;  // hogy azonnal eltávolodjon az ütõtõl
 		}
 		
 		// bal fal
@@ -111,6 +145,38 @@ public class faltoro extends JComponent implements ActionListener, MouseListener
 		// tetõ
 		if(labda_poz_y < 10){
 			labda_sebesseg_y = -1*labda_sebesseg_y;
+		}
+		
+		//Téglák kezelése
+		for(int i = 0; i<5; ++i){
+        	for(int j = 0; j<6; ++j) {
+        		if(destroyed[i][j]==true){	
+   				
+        			// tégla bal oldalát érte
+        			if((labda_x==(tegla_szelesseg+tegla_tavolsag_x)*i+tegla_eltolas_x-labda_r) && (labda_y>(tegla_magassag+tegla_tavolsag_y)*j+tegla_eltolas_y-labda_r-1) && (labda_y<(tegla_magassag+tegla_tavolsag_y)*j+tegla_eltolas_y+tegla_magassag+labda_r+1) && (labda_sebesseg_x>0)){
+        				destroyed[i][j]=false;
+        				labda_sebesseg_x = -1*labda_sebesseg_x;
+        			}
+        		
+        			// tégla jobb oldalát érte
+        			if((labda_x==(tegla_szelesseg+tegla_tavolsag_x)*i+tegla_eltolas_x+tegla_szelesseg+labda_r) && (labda_y>(tegla_magassag+tegla_tavolsag_y)*j+tegla_eltolas_y-labda_r-1) && (labda_y<(tegla_magassag+tegla_tavolsag_y)*j+tegla_eltolas_y+tegla_magassag+labda_r+1) && (labda_sebesseg_x<0)){
+        				destroyed[i][j]=false;
+        				labda_sebesseg_x = -1*labda_sebesseg_x;
+        			}
+        		
+        			// tégla felsõ oldalát érte
+        			if((labda_y==(tegla_magassag+tegla_tavolsag_y)*j+tegla_eltolas_y-labda_r) && (labda_x>(tegla_szelesseg+tegla_tavolsag_x)*i+tegla_eltolas_x-labda_r) && (labda_x<(tegla_szelesseg+tegla_tavolsag_x)*i+tegla_eltolas_x+labda_r+tegla_szelesseg) && (labda_sebesseg_y>0)){
+        				destroyed[i][j]=false;
+        				labda_sebesseg_y = -1*labda_sebesseg_y;
+        			}
+        		
+        			// tégla alsó oldalát érte
+        			if((labda_y==(tegla_magassag+tegla_tavolsag_y)*j+tegla_eltolas_y+tegla_magassag+labda_r) && (labda_x>(tegla_szelesseg+tegla_tavolsag_x)*i+tegla_eltolas_x-labda_r) && (labda_x<(tegla_szelesseg+tegla_tavolsag_x)*i+tegla_eltolas_x+tegla_szelesseg+labda_r) && (labda_sebesseg_y<0)){
+        				destroyed[i][j]=false;
+        				labda_sebesseg_y = -1*labda_sebesseg_y;
+        			} 		
+        		}
+        	}
 		}
 		
 		repaint(); // képernyõ újrarajzolása
@@ -138,11 +204,11 @@ public class faltoro extends JComponent implements ActionListener, MouseListener
 	public void mouseClicked(MouseEvent e) {
 		
 		if (click==true){
-		labda_sebesseg_x = 2;
-		labda_sebesseg_y = -2;
-		repaint();
-		click=false;
-		}
+			labda_sebesseg_x = 0;
+			labda_sebesseg_y = 1;
+			repaint();
+			click=false;
+			}
 	}
 
 	@Override
