@@ -21,7 +21,7 @@ public class faltoro extends JComponent implements ActionListener, MouseListener
 	
 	// Változók inicializálása 
 	public int state = 0;
-	public int jatek_sebessege = 1; // 0...4
+	public int jatek_sebessege = 3; // 0...4
 	public int labda_sebesseg_x = 0;
 	public int labda_sebesseg_y = 0;
 	public int labda_poz_x = 480;
