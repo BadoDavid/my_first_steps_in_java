@@ -41,6 +41,9 @@ public class faltoro extends JComponent implements ActionListener, MouseListener
 	public int tegla_szelesseg = 80;
 	public int tegla_magassag = 40;
 	public int palya = 1; // 1...5
+	public int score = 0;
+	public int lives = 3;
+	public boolean gameover = false;
 	public static int[][] destroyed = new int[5][6];
 	public boolean click = true;
 	
@@ -49,8 +52,17 @@ public class faltoro extends JComponent implements ActionListener, MouseListener
 	@Override
     protected void paintComponent(Graphics faltoro) {
 		
+		if (lives == 0)
+			{
+			gameover=true;
+			faltoro.setColor(Color.red);
+        	faltoro.setFont(new Font("serif", Font.BOLD, 50));
+        	faltoro.drawString("GAME OVER", 350, 300);
+			}
+		
+		else {
 		// labda
-		faltoro.setColor(Color.cyan); // labda színének beállítása
+		faltoro.setColor(Color.cyan); // labda színének bequállítása
         faltoro.fillOval(labda_poz_x, labda_poz_y, labda_size, labda_size);
         
         // ütõ beállításai
@@ -63,7 +75,12 @@ public class faltoro extends JComponent implements ActionListener, MouseListener
         //pontozás
         faltoro.setColor(Color.black);
         faltoro.setFont(new Font("serif", Font.BOLD, 50));
-        faltoro.drawString("0", 640, 40);
+        faltoro.drawString(""+score, 600, 40);
+        
+        //élet
+        faltoro.setColor(Color.black);
+        faltoro.setFont(new Font("serif", Font.BOLD, 50));
+        faltoro.drawString(""+lives, 400, 40);
         
         // téglák
         // j-> sorok száma    i-> oszlopok száma
@@ -85,7 +102,8 @@ public class faltoro extends JComponent implements ActionListener, MouseListener
         		}
         	}
         }
-	}
+		}
+		}
 
 	
 	
@@ -104,8 +122,10 @@ public class faltoro extends JComponent implements ActionListener, MouseListener
 			labda_poz_y = 640;
 			labda_sebesseg_y = 0;
 			labda_sebesseg_x = 0;
+			score = 0;
+			if (lives>0)
+				lives--;  //-1 élet
 			click=true;
-			// -1 élet vagy game over
 		}
 		
 		// ütõt ért a labda
@@ -163,24 +183,28 @@ public class faltoro extends JComponent implements ActionListener, MouseListener
         			// tégla bal oldalát érte
         			if((labda_x==(tegla_szelesseg+tegla_tavolsag_x)*i+tegla_eltolas_x-labda_r) && (labda_y>(tegla_magassag+tegla_tavolsag_y)*j+tegla_eltolas_y-labda_r-1) && (labda_y<(tegla_magassag+tegla_tavolsag_y)*j+tegla_eltolas_y+tegla_magassag+labda_r+1) && (labda_sebesseg_x>0)){
         				destroyed[i][j]--;
+        				score += 5;
         				labda_sebesseg_x = -1*labda_sebesseg_x;
         			}
         		
         			// tégla jobb oldalát érte
         			if((labda_x==(tegla_szelesseg+tegla_tavolsag_x)*i+tegla_eltolas_x+tegla_szelesseg+labda_r) && (labda_y>(tegla_magassag+tegla_tavolsag_y)*j+tegla_eltolas_y-labda_r-1) && (labda_y<(tegla_magassag+tegla_tavolsag_y)*j+tegla_eltolas_y+tegla_magassag+labda_r+1) && (labda_sebesseg_x<0)){
         				destroyed[i][j]--;
+        				score += 5;
         				labda_sebesseg_x = -1*labda_sebesseg_x;
         			}
         		
         			// tégla felsõ oldalát érte
         			if((labda_y==(tegla_magassag+tegla_tavolsag_y)*j+tegla_eltolas_y-labda_r) && (labda_x>(tegla_szelesseg+tegla_tavolsag_x)*i+tegla_eltolas_x-labda_r) && (labda_x<(tegla_szelesseg+tegla_tavolsag_x)*i+tegla_eltolas_x+labda_r+tegla_szelesseg) && (labda_sebesseg_y>0)){
         				destroyed[i][j]--;
+        				score += 5;
         				labda_sebesseg_y = -1*labda_sebesseg_y;
         			}
         		
         			// tégla alsó oldalát érte
         			if((labda_y==(tegla_magassag+tegla_tavolsag_y)*j+tegla_eltolas_y+tegla_magassag+labda_r) && (labda_x>(tegla_szelesseg+tegla_tavolsag_x)*i+tegla_eltolas_x-labda_r) && (labda_x<(tegla_szelesseg+tegla_tavolsag_x)*i+tegla_eltolas_x+tegla_szelesseg+labda_r) && (labda_sebesseg_y<0)){
         				destroyed[i][j]--;
+        				score += 5;
         				labda_sebesseg_y = -1*labda_sebesseg_y;
         			} 		
         		}
@@ -190,6 +214,20 @@ public class faltoro extends JComponent implements ActionListener, MouseListener
 		repaint(); // képernyõ újrarajzolása
 	}
 	
+	private static void setColor(Color red) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+	private static void drawString(String string, int i, int j) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
 	@Override
 	public void keyPressed(KeyEvent arg0) {
 		// TODO Auto-generated method stub
@@ -210,13 +248,24 @@ public class faltoro extends JComponent implements ActionListener, MouseListener
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		
-		if (click==true){
-			labda_sebesseg_x = 0;
-			labda_sebesseg_y = 1;
-			repaint();
-			click=false;
+		if (gameover==true)
+		{
+			lives=3;
+			click=true;
+		}
+		if (click==true)
+		{	
+			if(gameover==false)
+			{
+				labda_sebesseg_x = 0;
+				labda_sebesseg_y = 1;
+				repaint();
+				click=false;
 			}
+			else
+				gameover=false;
+		}
+
 	}
 
 	@Override
