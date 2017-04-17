@@ -9,6 +9,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -58,6 +59,11 @@ public class faltoro extends JComponent implements ActionListener, MouseListener
         	uto_poz=852;
         }
         faltoro.fillRect(uto_poz, 668, uto_size_x, uto_size_y);
+        
+        //pontozás
+        faltoro.setColor(Color.black);
+        faltoro.setFont(new Font("serif", Font.BOLD, 50));
+        faltoro.drawString("0", 640, 40);
         
         // téglák
         // j-> sorok száma    i-> oszlopok száma
