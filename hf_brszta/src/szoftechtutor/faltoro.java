@@ -43,7 +43,7 @@ public class faltoro extends JComponent implements ActionListener, MouseListener
 	public static int[][] destroyed = new int[5][6];
 	public boolean click = true;
 	
-	
+	//sta
 	
 	@Override
     protected void paintComponent(Graphics faltoro) {
