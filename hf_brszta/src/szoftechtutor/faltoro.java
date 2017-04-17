@@ -39,19 +39,14 @@ public class faltoro extends JComponent implements ActionListener, MouseListener
 	public int tegla_tavolsag_y = 30; // 20
 	public int tegla_szelesseg = 80;
 	public int tegla_magassag = 40;
-	public static boolean[][] destroyed = new boolean[5][6];
+	public int palya = 1; // 1...5
+	public static int[][] destroyed = new int[5][6];
 	public boolean click = true;
 	
 	
 	
 	@Override
     protected void paintComponent(Graphics faltoro) {
-		/*for(int i = 0; i<5; ++i){
-        	for(int j = 0; j<6; ++j) {
-        			//if(j==3 && i==3)
-        			destroyed[i][j] = true;
-        	}
-        }*/
 		
 		// labda
 		faltoro.setColor(Color.cyan); // labda színének beállítása
@@ -63,17 +58,24 @@ public class faltoro extends JComponent implements ActionListener, MouseListener
         	uto_poz=852;
         }
         faltoro.fillRect(uto_poz, 668, uto_size_x, uto_size_y);
+        
         // téglák
         // j-> sorok száma    i-> oszlopok száma
         for(int i = 0; i<5; ++i){
         	for(int j = 0; j<6; ++j) {
-        		if(destroyed[i][j] == true){
+        		if(destroyed[i][j] > 0){
         			
-        			//faltoro.setColor(Color.red);
-        			//faltoro.fillRect((tegla_szelesseg+tegla_tavolsag_x)*i+tegla_eltolas_x-labda_r,(tegla_magassag+tegla_tavolsag_y)*j+tegla_eltolas_y-labda_r,104,64);
+        			// Az egy életû téglák feketék
+        			if(destroyed[i][j] == 1){
+        				faltoro.setColor(Color.black);
+        				faltoro.fillRect((tegla_szelesseg+tegla_tavolsag_x)*i+tegla_eltolas_x,(tegla_magassag+tegla_tavolsag_y)*j+tegla_eltolas_y,tegla_szelesseg,tegla_magassag);
+        			}
         			
-        			faltoro.setColor(Color.black);
-        			faltoro.fillRect((tegla_szelesseg+tegla_tavolsag_x)*i+tegla_eltolas_x,(tegla_magassag+tegla_tavolsag_y)*j+tegla_eltolas_y,tegla_szelesseg,tegla_magassag);
+        			// A két életû téglák pirosak
+        			if(destroyed[i][j] == 2){
+        				faltoro.setColor(Color.red);
+        				faltoro.fillRect((tegla_szelesseg+tegla_tavolsag_x)*i+tegla_eltolas_x,(tegla_magassag+tegla_tavolsag_y)*j+tegla_eltolas_y,tegla_szelesseg,tegla_magassag);
+        			}
         		}
         	}
         }
@@ -150,29 +152,29 @@ public class faltoro extends JComponent implements ActionListener, MouseListener
 		//Téglák kezelése
 		for(int i = 0; i<5; ++i){
         	for(int j = 0; j<6; ++j) {
-        		if(destroyed[i][j]==true){	
+        		if(destroyed[i][j]>0){	
    				
         			// tégla bal oldalát érte
         			if((labda_x==(tegla_szelesseg+tegla_tavolsag_x)*i+tegla_eltolas_x-labda_r) && (labda_y>(tegla_magassag+tegla_tavolsag_y)*j+tegla_eltolas_y-labda_r-1) && (labda_y<(tegla_magassag+tegla_tavolsag_y)*j+tegla_eltolas_y+tegla_magassag+labda_r+1) && (labda_sebesseg_x>0)){
-        				destroyed[i][j]=false;
+        				destroyed[i][j]--;
         				labda_sebesseg_x = -1*labda_sebesseg_x;
         			}
         		
         			// tégla jobb oldalát érte
         			if((labda_x==(tegla_szelesseg+tegla_tavolsag_x)*i+tegla_eltolas_x+tegla_szelesseg+labda_r) && (labda_y>(tegla_magassag+tegla_tavolsag_y)*j+tegla_eltolas_y-labda_r-1) && (labda_y<(tegla_magassag+tegla_tavolsag_y)*j+tegla_eltolas_y+tegla_magassag+labda_r+1) && (labda_sebesseg_x<0)){
-        				destroyed[i][j]=false;
+        				destroyed[i][j]--;
         				labda_sebesseg_x = -1*labda_sebesseg_x;
         			}
         		
         			// tégla felsõ oldalát érte
         			if((labda_y==(tegla_magassag+tegla_tavolsag_y)*j+tegla_eltolas_y-labda_r) && (labda_x>(tegla_szelesseg+tegla_tavolsag_x)*i+tegla_eltolas_x-labda_r) && (labda_x<(tegla_szelesseg+tegla_tavolsag_x)*i+tegla_eltolas_x+labda_r+tegla_szelesseg) && (labda_sebesseg_y>0)){
-        				destroyed[i][j]=false;
+        				destroyed[i][j]--;
         				labda_sebesseg_y = -1*labda_sebesseg_y;
         			}
         		
         			// tégla alsó oldalát érte
         			if((labda_y==(tegla_magassag+tegla_tavolsag_y)*j+tegla_eltolas_y+tegla_magassag+labda_r) && (labda_x>(tegla_szelesseg+tegla_tavolsag_x)*i+tegla_eltolas_x-labda_r) && (labda_x<(tegla_szelesseg+tegla_tavolsag_x)*i+tegla_eltolas_x+tegla_szelesseg+labda_r) && (labda_sebesseg_y<0)){
-        				destroyed[i][j]=false;
+        				destroyed[i][j]--;
         				labda_sebesseg_y = -1*labda_sebesseg_y;
         			} 		
         		}
