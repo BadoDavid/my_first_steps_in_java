@@ -104,9 +104,16 @@ public class faltoro extends JComponent implements ActionListener, MouseListener
         
         // ütõ beállításai
         faltoro.setColor(Color.blue); // ütõ színének beállítása
+        
         if(uto_poz>852){ // ütõ mozgásának korlátozása
         	uto_poz=852;
         }
+        
+        if(uto_poz<10){ // ütõ mozgásának korlátozása
+        	uto_poz=10;
+        }
+        
+        
         faltoro.fillRect(uto_poz, 668, uto_size_x, uto_size_y);
         
         //pontozás
@@ -268,7 +275,13 @@ public class faltoro extends JComponent implements ActionListener, MouseListener
 	@Override
 	public void keyPressed(KeyEvent arg0) {
 		// TODO Auto-generated method stub
+		if(arg0.getKeyCode() == KeyEvent.VK_RIGHT){
+			uto_poz+=10;
+		}
 		
+		if(arg0.getKeyCode() == KeyEvent.VK_LEFT){
+			uto_poz-=10;
+		}
 	}
 
 	@Override
