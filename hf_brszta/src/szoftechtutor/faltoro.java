@@ -95,6 +95,8 @@ public class faltoro extends JComponent implements ActionListener, MouseListener
 			faltoro.setColor(Color.red);
         	faltoro.setFont(new Font("serif", Font.BOLD, 50));
         	faltoro.drawString("GAME OVER", 350, 300);
+        	faltoro.setFont(new Font("serif", Font.BOLD, 40));
+        	faltoro.drawString("Your score:  " +score, 380, 500);
 			}
 		
 		else {
@@ -159,7 +161,6 @@ public class faltoro extends JComponent implements ActionListener, MouseListener
 			labda_poz_y = 640;
 			labda_sebesseg_y = 0;
 			labda_sebesseg_x = 0;
-			score = 0;
 			if (lives>0)
 				lives--;  //-1 élet
 			click=true;
@@ -288,6 +289,7 @@ public class faltoro extends JComponent implements ActionListener, MouseListener
 		if (gameover==true)
 		{
 			lives=3;
+			score=0;
 			click=true;
 		}
 		if (click==true)
