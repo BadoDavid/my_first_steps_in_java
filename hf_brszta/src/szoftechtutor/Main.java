@@ -18,6 +18,9 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.Timer;
 import javax.swing.WindowConstants;
 
@@ -59,11 +62,49 @@ public class Main {
         window.setLocationRelativeTo(null); // Ablak elhelyezése a képeryõ közepén
         window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE); // memória takarítás bezáráskor
         
+
+        
         faltoro faltoro = new faltoro(); // Új faltoro létrehozása
         window.add(faltoro); // hozzáadása az ablakhoz
         
         window.addMouseMotionListener(faltoro); // egér mûködtetése
         window.addMouseListener(faltoro);
+        
+		JMenuBar menuBar = new JMenuBar();
+
+		JMenu menu = new JMenu("Start");
+		
+		JMenuItem menuItem = new JMenuItem("Single Player");
+		menuItem.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				faltoro.click=true;
+			}
+		});
+		menu.add(menuItem);
+
+		menuItem = new JMenuItem("Client");
+		menuItem.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				faltoro.startClient();
+			}
+		});
+		menu.add(menuItem);
+
+		menuItem = new JMenuItem("Server");
+		menuItem.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				faltoro.startServer();
+			}
+		});
+		menu.add(menuItem);
+		
+		menuBar.add(menu);
+		
+		window.setJMenuBar(menuBar);
+		
         Timer timer = new Timer(faltoro.jatek_sebessege, faltoro); // ciklikus lefutás
         timer.start();
         

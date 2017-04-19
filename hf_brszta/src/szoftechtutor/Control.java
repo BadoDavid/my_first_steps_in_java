@@ -26,14 +26,14 @@ class Control {
 	void startServer() {
 		if (net != null)
 			net.disconnect();
-		net = new SerialServer(this);
+		//net = new SerialServer(this);
 		net.connect("localhost");
 	}
 
 	void startClient() {
 		if (net != null)
 			net.disconnect();
-		net = new SerialClient(this);
+		//net = new SerialClient(this);
 		net.connect("localhost");
 	}
 

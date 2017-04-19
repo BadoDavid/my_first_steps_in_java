@@ -16,7 +16,7 @@ public class SerialServer extends Network {
 	private ObjectOutputStream out = null;
 	private ObjectInputStream in = null;
 
-	SerialServer(Control c) {
+	SerialServer(faltoro c) {
 		super(c);
 	}
 
@@ -27,6 +27,7 @@ public class SerialServer extends Network {
 				System.out.println("Waiting for Client");
 				clientSocket = serverSocket.accept();
 				System.out.println("Client connected.");
+				ctrl.click=true;
 			} catch (IOException e) {
 				System.err.println("Accept failed.");
 				disconnect();
@@ -45,8 +46,9 @@ public class SerialServer extends Network {
 
 			try {
 				while (true) {
-					Point received = (Point) in.readObject();
-					ctrl.clickReceived(received);
+					//Point received = (Point) in.readObject();
+					//ctrl.clickReceived(received);
+					ctrl.start_game();
 				}
 			} catch (Exception ex) {
 				System.out.println(ex.getMessage());

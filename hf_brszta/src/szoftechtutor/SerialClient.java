@@ -11,7 +11,7 @@ public class SerialClient extends Network {
 	private ObjectOutputStream out = null;
 	private ObjectInputStream in = null;
 
-	SerialClient(Control c) {
+	SerialClient(faltoro c) {
 		super(c);
 	}
 
@@ -19,10 +19,12 @@ public class SerialClient extends Network {
 
 		public void run() {
 			System.out.println("Waiting for points...");
+			ctrl.click=true;
 			try {
 				while (true) {
-					Point received = (Point) in.readObject();
-					ctrl.clickReceived(received);
+					//Point received = (Point) in.readObject();
+					//ctrl.clickReceived(received);
+					ctrl.start_game();
 				}
 			} catch (Exception ex) {
 				System.out.println(ex.getMessage());
