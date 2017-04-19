@@ -355,6 +355,29 @@ public class faltoro extends JComponent implements ActionListener, MouseListener
 	public void mouseReleased(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 		
-	}
 	
+	if(gameover==true)
+    {
+    switch (palya){
+	case 1:
+		for(int i = 0; i<5; ++i){
+        	for(int j = 0; j<6; ++j) {
+        			faltoro.destroyed[i][j] = 1;
+        	}
+        }
+		break;
+	case 2:
+		break;
+	case 3:
+		break;
+	case 4:
+		break;
+	case 5:
+		break;
+	default:
+		// nemjóóóó
+		break;
+    	}
+    }
+}
 }
