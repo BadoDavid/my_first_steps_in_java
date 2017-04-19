@@ -69,6 +69,7 @@ public class Main {
         
         window.addMouseMotionListener(faltoro); // egér mûködtetése
         window.addMouseListener(faltoro);
+        window.addKeyListener(faltoro);
         
 		JMenuBar menuBar = new JMenuBar();
 
