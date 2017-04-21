@@ -110,6 +110,13 @@ public class Main {
         timer.start();
         
         // Téglák állapotát jelzõ 2D tömb feltöltése 
+        
+        for(int i = 0; i<5; ++i){ // Elõször 0-ba állítjuk az összes elemet
+        	for(int j = 0; j<6; ++j) {	
+        		faltoro.destroyed[i][j] = 0;	
+        	}
+        }       
+        
         switch (faltoro.palya){
         	case 1:
         		for(int i = 0; i<5; ++i){
@@ -119,8 +126,28 @@ public class Main {
                 }
         		break;
         	case 2:
+        		for(int i = 0; i<5; ++i){
+                	for(int j = 0; j<6; ++j) {
+                			if(i==j || (i==3 && j==5)) {
+                				faltoro.destroyed[i][j] = 2;
+                			}
+                			else{
+                				faltoro.destroyed[i][j] = 1;
+                			}
+                	}
+                }
         		break;
         	case 3:
+        		for(int i = 0; i<5; ++i){
+                	for(int j = 0; j<6; ++j) {
+                			if((i==2) && (j==2 || j==3)) {
+                				faltoro.destroyed[i][j] = 2;
+                			}
+                			else if(i==0 || j==0 || i==4 || j==5){
+                				faltoro.destroyed[i][j] = 1;
+                			}
+                	}
+                }        		
         		break;
         	case 4:
         		break;

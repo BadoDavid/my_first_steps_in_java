@@ -40,7 +40,7 @@ public class faltoro extends JComponent implements ActionListener, MouseListener
 	public int tegla_tavolsag_y = 30; // 20
 	public int tegla_szelesseg = 80;
 	public int tegla_magassag = 40;
-	public int palya = 1; // 1...5
+	public int palya = 3; // 1...5
 	public int score = 0;
 	public int lives = 3;
 	public boolean gameover = false;

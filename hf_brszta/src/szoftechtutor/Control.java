@@ -7,18 +7,28 @@ package szoftechtutor;
 
 import java.awt.Point;
 
+import javax.swing.Timer;
+
 /**
  *
  * @author Predi
  */
+
+
+
 class Control {
 
 	private GUI gui;
 	private Network net = null;
-
+	
+	
+    
 	Control() {
+		
 	}
 
+
+	
 	void setGUI(GUI g) {
 		gui = g;
 	}
