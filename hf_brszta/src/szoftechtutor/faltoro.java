@@ -43,7 +43,7 @@ public class faltoro extends JComponent implements ActionListener, MouseListener
 	public int palya = 3; // 1...5
 	public int score = 0;
 	public int lives = 3;
-	public boolean gameover = false;
+	public boolean gameover = true;
 	public static int[][] destroyed = new int[5][6];
 	public boolean click = false; //true;
 	
@@ -356,7 +356,7 @@ public class faltoro extends JComponent implements ActionListener, MouseListener
 		// TODO Auto-generated method stub
 		
 	
-	if(gameover==true)
+	/*if(gameover==true)
     {
     switch (palya){
 	case 1:
@@ -367,8 +367,28 @@ public class faltoro extends JComponent implements ActionListener, MouseListener
         }
 		break;
 	case 2:
+		for(int i = 0; i<5; ++i){
+        	for(int j = 0; j<6; ++j) {
+        			if(i==j || (i==3 && j==5)) {
+        				faltoro.destroyed[i][j] = 2;
+        			}
+        			else{
+        				faltoro.destroyed[i][j] = 1;
+        			}
+        	}
+		}
 		break;
 	case 3:
+		for(int i = 0; i<5; ++i){
+        	for(int j = 0; j<6; ++j) {
+        			if((i==2) && (j==2 || j==3)) {
+        				faltoro.destroyed[i][j] = 2;
+        			}
+        			else if(i==0 || j==0 || i==4 || j==5){
+        				faltoro.destroyed[i][j] = 1;
+        			}
+        	}
+        }        	
 		break;
 	case 4:
 		break;
@@ -376,8 +396,7 @@ public class faltoro extends JComponent implements ActionListener, MouseListener
 		break;
 	default:
 		// nemjóóóó
-		break;
+		break;*/
     	}
-    }
-}
+
 }

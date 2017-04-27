@@ -116,7 +116,8 @@ public class Main {
         		faltoro.destroyed[i][j] = 0;	
         	}
         }       
-        
+        if(faltoro.gameover==true)
+        {
         switch (faltoro.palya){
         	case 1:
         		for(int i = 0; i<5; ++i){
@@ -161,5 +162,5 @@ public class Main {
     
         
         
-        
+	}  
 	}
