@@ -110,13 +110,15 @@ public class Main {
         timer.start();
         
         // Téglák állapotát jelzõ 2D tömb feltöltése 
-        
+        void LevelGen()
+        {
+        if(faltoro.gameover==true)
+        {
         for(int i = 0; i<5; ++i){ // Elõször 0-ba állítjuk az összes elemet
         	for(int j = 0; j<6; ++j) {	
         		faltoro.destroyed[i][j] = 0;	
-        	}
-        }       
-        if(faltoro.gameover==true)
+        
+        
         {
         switch (faltoro.palya){
         	case 1:
@@ -159,8 +161,8 @@ public class Main {
         		break;
         }
 	}
-    
-        
-        
+    }
+    }    
 	}  
+    }
 	}

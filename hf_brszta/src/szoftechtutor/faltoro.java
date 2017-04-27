@@ -68,6 +68,7 @@ public class faltoro extends JComponent implements ActionListener, MouseListener
 		{
 			lives=3;
 			click=true;
+			
 		}
 		if (click==true)
 		{	
