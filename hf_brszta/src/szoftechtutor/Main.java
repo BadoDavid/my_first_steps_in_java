@@ -33,26 +33,21 @@ import javax.swing.WindowConstants;
  */
 public class Main {
 	
-	public static Dimension d = new Dimension(1024,768); // Ablak fix méretének beállítása
+	//public static Dimension d = new Dimension(1024,768); // Ablak fix méretének beállítása
 
 	/**
 	 * @param args
 	 *            the command line arguments
 	 */
 	public static void main(String[] args) {
-		/*
-		 * Java gyakorlaton bemutatott mintaprogram main-jének belseje
-		 * ehhez tartozik még a GUI.java, a Control.java 
-		 * és a Network.java, de ez még nincs implementálva
-		 * 
-		 * 
-		*/
-		/*
-		Control c = new Control();
+
+		faltoro c = new faltoro();
 		GUI g = new GUI(c);
 		c.setGUI(g);
-		*/
 		
+		/*
+		 * az eredeti Main felépítése
+		 * 
 		JFrame window = new JFrame(); // Ablak létrehozása
 		window.setTitle("Faltoro"); // Ablak neve
 		window.setSize(d); // Ablak mérete
@@ -110,7 +105,7 @@ public class Main {
         timer.start();
         
         Control.palyafelepites(5);	
-        
+        */
 	
 	}
     

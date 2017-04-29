@@ -47,20 +47,25 @@ public class faltoro extends JComponent implements ActionListener, MouseListener
 	public static int[][] destroyed = new int[5][6];
 	public boolean click = false; //true;
 	
+	private GUI gui;
 	private Network net = null;
+	
+	void setGUI(GUI g) {
+		gui = g;
+	}
 	
 	void startServer() {
 	if (net != null)
 		net.disconnect();
 	net = new SerialServer(this);
-	net.connect("localhost");
+	net.connect("192.168.0.102");
 	}
 	
 	void startClient() {
 	if (net != null)
 		net.disconnect();
 	net = new SerialClient(this);
-	net.connect("localhost");
+	net.connect("192.168.0.102");
 	}	
 	
 	void start_game(){
