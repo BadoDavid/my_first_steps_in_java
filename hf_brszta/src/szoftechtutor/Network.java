@@ -12,9 +12,9 @@ import java.awt.Point;
  */
 abstract class Network {
 
-	protected faltoro ctrl;
+	protected Control ctrl;
 
-	Network(faltoro c) {
+	Network(Control c) {
 		ctrl = c;
 	}
 

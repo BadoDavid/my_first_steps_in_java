@@ -4,7 +4,9 @@
  */
 package szoftechtutor;
 
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
@@ -13,6 +15,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -21,6 +24,8 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 import javax.swing.WindowConstants;
 
+//import szoftechtutor.GUI.DrawPanel;
+
 /**
  *
  * @author Predi
@@ -28,12 +33,12 @@ import javax.swing.WindowConstants;
 public class GUI {
 
 	private static final long serialVersionUID = 1L;
-	private faltoro ctrl;
-	private DrawPanel drawPanel;
+	private Control ctrl;
+	private DrawComponent drawComponent;
 	public static Dimension d = new Dimension(1024,768); // Ablak fix méretének beállítása
 
 
-	GUI(faltoro c) {
+	GUI(Control c) {
 		//super("SzoftechTutor");
 		ctrl = c;
 		//setSize(500, 350);
@@ -48,8 +53,9 @@ public class GUI {
         window.setVisible(true); // Ablak láthatóvá tétele
         window.setLocationRelativeTo(null); // Ablak elhelyezése a képeryõ közepén
         window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE); // memória takarítás bezáráskor
-
-        window.add(ctrl); // hozzáadása az ablakhoz
+        
+        drawComponent = new DrawComponent();
+        window.add(drawComponent); // hozzáadása az ablakhoz
         
         window.addMouseMotionListener(ctrl); // egér mûködtetése
         window.addMouseListener(ctrl);
@@ -94,6 +100,8 @@ public class GUI {
         timer.start();
         
         palyafelepites(5);
+        
+        drawComponent.repaint();
 	}
 	
 	public static void palyafelepites(int palya){
@@ -101,7 +109,7 @@ public class GUI {
 		        
 		        for(int i = 0; i<5; ++i){ // Elõször 0-ba állítjuk az összes elemet
 		        	for(int j = 0; j<6; ++j) {	
-		        		faltoro.destroyed[i][j] = 0;	
+		        		Control.destroyed[i][j] = 0;	
 		        	}
 		        }       
 		        
@@ -109,7 +117,7 @@ public class GUI {
 		        	case 1:
 		        		for(int i = 0; i<5; ++i){
 		                	for(int j = 0; j<6; ++j) {
-		                			faltoro.destroyed[i][j] = 1;
+		                		Control.destroyed[i][j] = 1;
 		                	}
 		                }
 		        		break;
@@ -117,10 +125,10 @@ public class GUI {
 		        		for(int i = 0; i<5; ++i){
 		                	for(int j = 0; j<6; ++j) {
 		                			if(i==j || (i==3 && j==5)) {
-		                				faltoro.destroyed[i][j] = 2;
+		                				Control.destroyed[i][j] = 2;
 		                			}
 		                			else{
-		                				faltoro.destroyed[i][j] = 1;
+		                				Control.destroyed[i][j] = 1;
 		                			}
 		                	}
 		                }
@@ -129,10 +137,10 @@ public class GUI {
 		        		for(int i = 0; i<5; ++i){
 		                	for(int j = 0; j<6; ++j) {
 		                			if((i==2) && (j==2 || j==3)) {
-		                				faltoro.destroyed[i][j] = 2;
+		                				Control.destroyed[i][j] = 2;
 		                			}
 		                			else if(i==0 || j==0 || i==4 || j==5){
-		                				faltoro.destroyed[i][j] = 1;
+		                				Control.destroyed[i][j] = 1;
 		                			}
 		                	}
 		                }        		
@@ -141,10 +149,10 @@ public class GUI {
 		        		for(int i = 0; i<5; ++i){
 		                	for(int j = 0; j<6; ++j) {
 		                			if(j==5) {
-		                				faltoro.destroyed[i][j] = 2;
+		                				Control.destroyed[i][j] = 2;
 		                			}
 		                			else if(j==0 || i==0 || i==2 || i==4){
-		                				faltoro.destroyed[i][j] = 1;
+		                				Control.destroyed[i][j] = 1;
 		                			}
 		                	}
 		                }  
@@ -153,16 +161,16 @@ public class GUI {
 		        		for(int i = 0; i<5; ++i){
 		                	for(int j = 0; j<6; ++j) {
 		                			if(j>=3) {
-		                				faltoro.destroyed[i][j] = 2;
+		                				Control.destroyed[i][j] = 2;
 		                			}
 		                			else if(j==0 && (i<1 || i>3)){
-		                				faltoro.destroyed[i][j] = 1;
+		                				Control.destroyed[i][j] = 1;
 		                			}
 		                			else if(j==1 && i!=2){
-		                				faltoro.destroyed[i][j] = 1;
+		                				Control.destroyed[i][j] = 1;
 		                			}
 		                			else if(j==2 || j==3){
-		                				faltoro.destroyed[i][j] = 1;
+		                				Control.destroyed[i][j] = 1;
 		                			}
 		                			
 		                	}
@@ -174,23 +182,83 @@ public class GUI {
 		        }
 			}
 
-	void addPoint(Point p) {
-		drawPanel.points.add(p);
-		drawPanel.repaint();
+	void repaint() {
+		//drawPanel.points.add(p);
+		drawComponent.repaint();
 	}
 
-	private class DrawPanel extends JPanel {
+	
+	private class DrawComponent extends JComponent {
 
 		private static final long serialVersionUID = 1L;
-		private ArrayList<Point> points = new ArrayList<Point>();
-
+		//private ArrayList<Point> points = new ArrayList<Point>();
+		
 		@Override
-		protected void paintComponent(Graphics g) {
-			super.paintComponent(g);
-
-			for (Point p : points) {
-				g.drawOval(p.x, p.y, 10, 10);
+	    protected void paintComponent(Graphics graphics) {
+			super.paintComponent(graphics);
+			
+			if (ctrl.lives == 0)
+				{
+				ctrl.gameover=true;
+				graphics.setColor(Color.red);
+				graphics.setFont(new Font("serif", Font.BOLD, 50));
+				graphics.drawString("GAME OVER", 350, 300);
+				graphics.setFont(new Font("serif", Font.BOLD, 40));
+				graphics.drawString("Your score:  " +ctrl.score, 380, 500);
+				}
+			
+			else {
+			// labda
+				graphics.setColor(Color.cyan); // labda színének bequállítása
+				graphics.fillOval(ctrl.labda_poz_x, ctrl.labda_poz_y, ctrl.labda_size, ctrl.labda_size);
+	        
+	        // ütõ beállításai
+				graphics.setColor(Color.blue); // ütõ színének beállítása
+	        
+	        if(ctrl.uto_poz>852){ // ütõ mozgásának korlátozása
+	        	ctrl.uto_poz=852;
+	        }
+	        
+	        if(ctrl.uto_poz<10){ // ütõ mozgásának korlátozása
+	        	ctrl.uto_poz=10;
+	        }
+	        
+	        
+	        graphics.fillRect(ctrl.uto_poz, 668, ctrl.uto_size_x, ctrl.uto_size_y);
+	        
+	        //pontozás
+	        graphics.setColor(Color.black);
+	        graphics.setFont(new Font("serif", Font.BOLD, 50));
+	        graphics.drawString(""+ctrl.score, 600, 40);
+	        
+	        //élet
+	        graphics.setColor(Color.black);
+	        graphics.setFont(new Font("serif", Font.BOLD, 50));
+	        graphics.drawString(""+ctrl.lives, 400, 40);
+	        
+	        // téglák
+	        // j-> sorok száma    i-> oszlopok száma
+	        for(int i = 0; i<5; ++i){
+	        	for(int j = 0; j<6; ++j) {
+	        		if(Control.destroyed[i][j] > 0){
+	        			
+	        			// Az egy életû téglák feketék
+	        			if(Control.destroyed[i][j] == 1){
+	        				graphics.setColor(Color.black);
+	        				graphics.fillRect((ctrl.tegla_szelesseg+ctrl.tegla_tavolsag_x)*i+ctrl.tegla_eltolas_x,(ctrl.tegla_magassag+ctrl.tegla_tavolsag_y)*j+ctrl.tegla_eltolas_y,ctrl.tegla_szelesseg,ctrl.tegla_magassag);
+	        			}
+	        			
+	        			// A két életû téglák pirosak
+	        			if(Control.destroyed[i][j] == 2){
+	        				graphics.setColor(Color.red);
+	        				graphics.fillRect((ctrl.tegla_szelesseg+ctrl.tegla_tavolsag_x)*i+ctrl.tegla_eltolas_x,(ctrl.tegla_magassag+ctrl.tegla_tavolsag_y)*j+ctrl.tegla_eltolas_y,ctrl.tegla_szelesseg,ctrl.tegla_magassag);
+	        			}
+	        		}
+	        	}
+	        }
 			}
-		}
+			}
+			
 	}
+	
 }

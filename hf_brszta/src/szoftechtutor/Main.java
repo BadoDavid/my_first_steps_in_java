@@ -41,7 +41,7 @@ public class Main {
 	 */
 	public static void main(String[] args) {
 
-		faltoro c = new faltoro();
+		Control c = new Control();
 		GUI g = new GUI(c);
 		c.setGUI(g);
 		

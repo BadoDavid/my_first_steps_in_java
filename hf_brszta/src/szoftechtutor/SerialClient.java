@@ -11,7 +11,7 @@ public class SerialClient extends Network {
 	private ObjectOutputStream out = null;
 	private ObjectInputStream in = null;
 
-	SerialClient(faltoro c) {
+	SerialClient(Control c) {
 		super(c);
 	}
 

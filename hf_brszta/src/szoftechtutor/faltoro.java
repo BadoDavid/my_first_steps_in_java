@@ -16,7 +16,7 @@ import javax.swing.JFrame;
 import javax.swing.Timer;
 import javax.swing.WindowConstants;
 
-public class faltoro extends JComponent implements ActionListener, MouseListener, MouseMotionListener, KeyListener   {
+public class faltoro implements ActionListener, MouseListener, MouseMotionListener, KeyListener   {
 	
 	//public static Dimension dimension = new Dimension(1024,768); // Ablak fix méretének beállítása
 	
@@ -53,7 +53,7 @@ public class faltoro extends JComponent implements ActionListener, MouseListener
 	void setGUI(GUI g) {
 		gui = g;
 	}
-	
+	/*
 	void startServer() {
 	if (net != null)
 		net.disconnect();
@@ -67,7 +67,7 @@ public class faltoro extends JComponent implements ActionListener, MouseListener
 	net = new SerialClient(this);
 	net.connect("192.168.0.102");
 	}	
-	
+	*/
 	void start_game(){
 		if (gameover==true)
 		{
@@ -81,7 +81,7 @@ public class faltoro extends JComponent implements ActionListener, MouseListener
 			{
 				labda_sebesseg_x = 0;
 				labda_sebesseg_y = 1;
-				repaint();
+				gui.repaint();
 				click=false;
 			}
 			else
@@ -91,7 +91,7 @@ public class faltoro extends JComponent implements ActionListener, MouseListener
 
 	
 	//sta
-	
+	/*
 	@Override
     protected void paintComponent(Graphics faltoro) {
 		
@@ -156,7 +156,7 @@ public class faltoro extends JComponent implements ActionListener, MouseListener
         }
 		}
 		}
-
+	*/
 	
 	
 	@Override
@@ -262,7 +262,7 @@ public class faltoro extends JComponent implements ActionListener, MouseListener
         	}
 		}
 		
-		repaint(); // képernyõ újrarajzolása
+		gui.repaint(); // képernyõ újrarajzolása
 	}
 	
 	private static void setColor(Color red) {
@@ -317,7 +317,7 @@ public class faltoro extends JComponent implements ActionListener, MouseListener
 			{
 				labda_sebesseg_x = 0;
 				labda_sebesseg_y = 1;
-				repaint();
+				gui.repaint();
 				click=false;
 			}
 			else
@@ -330,7 +330,7 @@ public class faltoro extends JComponent implements ActionListener, MouseListener
 	public void mouseMoved(MouseEvent arg0) {
 		uto_poz = arg0.getX(); // egér x pozíciójának beolvasása
 	
-		repaint(); // képernyõ újrarajzolása
+		gui.repaint(); // képernyõ újrarajzolása
 	}
 
 	@Override
