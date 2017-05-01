@@ -7,6 +7,10 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Formatter;
+import java.util.Scanner;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -86,6 +90,60 @@ public class Control implements ActionListener, MouseListener, MouseMotionListen
 			}
 			else
 				gameover=false;
+		}
+	}
+	
+	void saveGame(){
+		String wall = "";
+		
+		for(int i = 0; i<5; ++i){
+        	for(int j = 0; j<6; ++j) {
+        		wall += " " + Control.destroyed[i][j];
+        	}
+        }   
+		try{
+			Formatter f = new Formatter("save.txt");
+			System.out.println("Open");
+			f.format("%d %d %s", score, lives, wall);
+			f.close();
+		}
+		catch (Exception e){
+			System.out.println("Error");
+		}
+	}
+	
+	void loadGame(){
+		int wall;
+		int i = 0;
+		int j = 0;
+		/*
+		for(int i = 0; i<5; ++i){
+        	for(int j = 0; j<6; ++j) {
+        		wall += Control.destroyed[i][j];
+        	}
+        }   
+        */
+		try{
+			File x = new File("save.txt");
+			System.out.println("Read");
+			Scanner sc = new Scanner(x);
+			score = sc.nextInt();
+			lives = sc.nextInt();
+			while(sc.hasNext()){
+				wall = sc.nextInt();
+				Control.destroyed[i][j] = wall;
+				j++;
+				if(j == 6){
+					i++;
+					j=0;
+				}
+				//System.out.print(wall);
+			}
+			//f.format("%d %d %s", score, lives, wall);
+			sc.close();
+		}
+		catch (FileNotFoundException e){
+			System.out.println("Error");
 		}
 	}
 
@@ -289,6 +347,13 @@ public class Control implements ActionListener, MouseListener, MouseMotionListen
 		if(arg0.getKeyCode() == KeyEvent.VK_LEFT){
 			uto_poz-=10;
 		}
+		
+		if (arg0.getKeyCode() == KeyEvent.VK_S){
+			saveGame();
+		}
+		if (arg0.getKeyCode() == KeyEvent.VK_L){
+			loadGame();
+		}
 	}
 
 	@Override
@@ -300,7 +365,11 @@ public class Control implements ActionListener, MouseListener, MouseMotionListen
 	@Override
 	public void keyTyped(KeyEvent arg0) {
 		// TODO Auto-generated method stub
-		
+		/*
+		if (arg0.getKeyCode() == KeyEvent.VK_S){
+			saveGame();
+		}
+		*/
 	}
 
 	@Override
