@@ -330,7 +330,7 @@ public class Control implements ActionListener, MouseListener, MouseMotionListen
 	public void mouseMoved(MouseEvent arg0) {
 		uto_poz = arg0.getX(); // egér x pozíciójának beolvasása
 	
-		gui.repaint(); // képernyõ újrarajzolása
+		//gui.repaint(); // képernyõ újrarajzolása
 	}
 
 	@Override
