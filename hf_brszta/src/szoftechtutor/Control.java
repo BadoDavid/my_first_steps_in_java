@@ -44,9 +44,10 @@ public class Control implements ActionListener, MouseListener, MouseMotionListen
 	public int tegla_tavolsag_y = 30; // 20
 	public int tegla_szelesseg = 80;
 	public int tegla_magassag = 40;
-	public int palya = 5; // 1...5
+	public int palya = 1; // 1...5
 	public int score = 0;
 	public int lives = 3;
+	public boolean clear = false;
 	public boolean gameover = true;
 	public static int[][] destroyed = new int[5][6];
 	public boolean click = false; //true;
@@ -378,6 +379,8 @@ public class Control implements ActionListener, MouseListener, MouseMotionListen
 		{
 			lives=3;
 			score=0;
+			palya=1;
+			GUI.palyafelepites(palya);
 			click=true;
 		}
 		if (click==true)

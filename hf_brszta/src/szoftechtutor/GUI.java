@@ -95,11 +95,11 @@ public class GUI {
 		menuBar.add(menu);
 		
 		window.setJMenuBar(menuBar);
-        
+		
         Timer timer = new Timer(ctrl.jatek_sebessege, ctrl); // ciklikus lefutás
         timer.start();
         
-        palyafelepites(5);
+        palyafelepites(ctrl.palya);
         
         drawComponent.repaint();
 	}
@@ -181,7 +181,21 @@ public class GUI {
 		        		break;
 		        }
 			}
-
+	
+	void clearcheck(){
+	for(int i = 0; i<5; ++i){
+    	for(int j = 0; j<6; ++j) {
+    		int cle=0;
+    		if (Control.destroyed[i][j]==1||Control.destroyed[i][j]==2){
+    			cle=1;}
+    			if (cle==0)
+    				Control.palya++;  	
+    				
+    		
+    	}
+	}
+	}
+	
 	void repaint() {
 		//drawPanel.points.add(p);
 		drawComponent.repaint();
