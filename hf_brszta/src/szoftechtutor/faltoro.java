@@ -265,6 +265,10 @@ public class faltoro implements ActionListener, MouseListener, MouseMotionListen
 		gui.repaint(); // képernyõ újrarajzolása
 	}
 	
+	private void setFont(Font font) {
+		// TODO Auto-generated method stub
+		
+	}
 	private static void setColor(Color red) {
 		// TODO Auto-generated method stub
 		

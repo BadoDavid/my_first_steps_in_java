@@ -182,20 +182,22 @@ public class GUI {
 		        }
 			}
 	
-	void clearcheck(){
-	for(int i = 0; i<5; ++i){
-    	for(int j = 0; j<6; ++j) {
-    		int cle=0;
-    		if (Control.destroyed[i][j]==1||Control.destroyed[i][j]==2){
-    			cle=1;}
-    			if (cle==0)
-    				Control.palya++;  	
-    				
-    		
-    	}
-	}
-	}
 	
+	private void drawString(String string, int i, int j) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void setFont(Font font) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void setColor(Color blue) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	void repaint() {
 		//drawPanel.points.add(p);
 		drawComponent.repaint();
@@ -249,6 +251,12 @@ public class GUI {
 	        graphics.setColor(Color.black);
 	        graphics.setFont(new Font("serif", Font.BOLD, 50));
 	        graphics.drawString(""+ctrl.lives, 400, 40);
+	        
+	        //pálya
+	        
+	        graphics.setColor(Color.black);
+	        graphics.setFont(new Font("serif", Font.BOLD, 50));
+	        graphics.drawString(""+ctrl.palya, 200, 40);
 	        
 	        // téglák
 	        // j-> sorok száma    i-> oszlopok száma

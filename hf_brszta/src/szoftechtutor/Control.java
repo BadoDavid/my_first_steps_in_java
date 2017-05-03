@@ -47,7 +47,7 @@ public class Control implements ActionListener, MouseListener, MouseMotionListen
 	public int palya = 1; // 1...5
 	public int score = 0;
 	public int lives = 3;
-	public boolean clear = false;
+	public boolean clear = true;
 	public boolean gameover = true;
 	public static int[][] destroyed = new int[5][6];
 	public boolean click = false; //true;
@@ -320,7 +320,26 @@ public class Control implements ActionListener, MouseListener, MouseMotionListen
         		}
         	}
 		}
-		
+		clear=true;
+		for(int i = 0; i<5; ++i){
+        	for(int j = 0; j<6; ++j) {
+        		if(destroyed[i][j]>0){	
+        			clear=false;
+          		}
+        	}	
+        }
+	if (clear==true)  //szintet léptünk
+	{
+		palya++;
+		GUI.palyafelepites(palya);
+		uto_poz = 426;
+		labda_poz_x = 480;
+		labda_poz_y = 640;
+		labda_sebesseg_y = 0;
+		labda_sebesseg_x = 0;
+		click=true;
+	}
+	
 		gui.repaint(); // képernyõ újrarajzolása
 	}
 	
