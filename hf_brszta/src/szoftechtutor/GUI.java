@@ -225,44 +225,44 @@ public class GUI {
 	    protected void paintComponent(Graphics graphics) {
 			super.paintComponent(graphics);
 			
-			if (ctrl.lives == 0)
+			if (ctrl.jatekos.lives == 0)
 				{
 				ctrl.gameover=true;
 				graphics.setColor(Color.red);
 				graphics.setFont(new Font("serif", Font.BOLD, 50));
 				graphics.drawString("GAME OVER", 350, 300);
 				graphics.setFont(new Font("serif", Font.BOLD, 40));
-				graphics.drawString("Your score:  " +ctrl.score, 380, 500);
+				graphics.drawString("Your score:  " +ctrl.jatekos.score, 380, 500);
 				}
 			
 			else {
 			// labda
 				graphics.setColor(Color.cyan); // labda színének bequállítása
-				graphics.fillOval(ctrl.labda_poz_x, ctrl.labda_poz_y, ctrl.labda_size, ctrl.labda_size);
+				graphics.fillOval(ctrl.labda.poz_x, ctrl.labda.poz_y, ctrl.labda.size, ctrl.labda.size);
 	        
 	        // ütõ beállításai
 				graphics.setColor(Color.blue); // ütõ színének beállítása
 	        
-	        if(ctrl.uto_poz>852){ // ütõ mozgásának korlátozása
-	        	ctrl.uto_poz=852;
+	        if(ctrl.uto.poz>852){ // ütõ mozgásának korlátozása
+	        	ctrl.uto.poz=852;
 	        }
 	        
-	        if(ctrl.uto_poz<10){ // ütõ mozgásának korlátozása
-	        	ctrl.uto_poz=10;
+	        if(ctrl.uto.poz<10){ // ütõ mozgásának korlátozása
+	        	ctrl.uto.poz=10;
 	        }
 	        
 	        
-	        graphics.fillRect(ctrl.uto_poz, 668, ctrl.uto_size_x, ctrl.uto_size_y);
+	        graphics.fillRect(ctrl.uto.poz, 668, ctrl.uto.size_x, ctrl.uto.size_y);
 	        
 	        //pontozás
 	        graphics.setColor(Color.black);
 	        graphics.setFont(new Font("serif", Font.BOLD, 50));
-	        graphics.drawString(""+ctrl.score, 600, 40);
+	        graphics.drawString(""+ctrl.jatekos.score, 600, 40);
 	        
 	        //élet
 	        graphics.setColor(Color.black);
 	        graphics.setFont(new Font("serif", Font.BOLD, 50));
-	        graphics.drawString(""+ctrl.lives, 400, 40);
+	        graphics.drawString(""+ctrl.jatekos.lives, 400, 40);
 	        
 	        //pálya
 	        
