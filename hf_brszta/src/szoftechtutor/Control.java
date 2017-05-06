@@ -26,7 +26,7 @@ public class Control implements ActionListener, MouseListener, MouseMotionListen
 	
 	// Változók inicializálása 
 	public int state = 0;
-	public int jatek_sebessege = 3; // 0...4
+	public int jatek_sebessege = 5; // 1...5
 	public int labda_sebesseg_x = 0;
 	public int labda_sebesseg_y = 0;
 	public int labda_poz_x = 480;
@@ -233,8 +233,11 @@ public class Control implements ActionListener, MouseListener, MouseMotionListen
 			labda_poz_y = 640;
 			labda_sebesseg_y = 0;
 			labda_sebesseg_x = 0;
-			if (lives>0)
+			if (lives>0){
 				lives--;  //-1 élet
+			//jatek_sebessege = 5;
+			//timer.setDelay(jatek_sebessege); itt kéne állítani a gui-ban lévõ timer késleltetését
+			}
 			click=true;
 		}
 		
@@ -331,6 +334,8 @@ public class Control implements ActionListener, MouseListener, MouseMotionListen
 	if (clear==true)  //szintet léptünk
 	{
 		palya++;
+		//jatek_sebessege = 5;
+		//timer.setDelay(jatek_sebessege); itt kéne állítani a gui-ban lévõ timer késleltetését
 		GUI.palyafelepites(palya);
 		uto_poz = 426;
 		labda_poz_x = 480;

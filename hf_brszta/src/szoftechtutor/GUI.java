@@ -99,6 +99,18 @@ public class GUI {
         Timer timer = new Timer(ctrl.jatek_sebessege, ctrl); // ciklikus lefutás
         timer.start();
         
+        // labda gyorsítása 30 másodpercenként
+        Timer timer1 = new Timer(30000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+            	if(ctrl.jatek_sebessege>1){
+            			ctrl.jatek_sebessege = ctrl.jatek_sebessege-1;
+            			timer.setDelay(ctrl.jatek_sebessege); 
+            	}
+            }
+        });
+        timer1.start();
+        
         palyafelepites(ctrl.palya);
         
         drawComponent.repaint();

@@ -22,7 +22,7 @@ public class faltoro implements ActionListener, MouseListener, MouseMotionListen
 	
 	// Változók inicializálása 
 	public int state = 0;
-	public int jatek_sebessege = 3; // 0...4
+	//public int jatek_sebessege = 5; // 0...5
 	public int labda_sebesseg_x = 0;
 	public int labda_sebesseg_y = 0;
 	public int labda_poz_x = 480;
@@ -174,9 +174,12 @@ public class faltoro implements ActionListener, MouseListener, MouseMotionListen
 			labda_poz_y = 640;
 			labda_sebesseg_y = 0;
 			labda_sebesseg_x = 0;
-			if (lives>0)
+			if (lives>0){
 				lives--;  //-1 élet
+			
+			}
 			click=true;
+			
 		}
 		
 		// ütõt ért a labda
