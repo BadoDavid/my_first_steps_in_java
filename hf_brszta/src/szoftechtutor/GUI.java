@@ -116,12 +116,12 @@ public class GUI {
         drawComponent.repaint();
 	}
 	
-	public static void palyafelepites(int palya){
+	public static void palyafelepites(Wall fal){
 		// Téglák állapotát jelzõ 2D tömb feltöltése 
-		        
+		        int palya = fal.palya;
 		        for(int i = 0; i<5; ++i){ // Elõször 0-ba állítjuk az összes elemet
 		        	for(int j = 0; j<6; ++j) {	
-		        		Control.destroyed[i][j] = 0;	
+		        		Wall.destroyed[i][j] = 0;	
 		        	}
 		        }       
 		        
@@ -129,7 +129,7 @@ public class GUI {
 		        	case 1:
 		        		for(int i = 0; i<5; ++i){
 		                	for(int j = 0; j<6; ++j) {
-		                		Control.destroyed[i][j] = 1;
+		                		Wall.destroyed[i][j] = 1;
 		                	}
 		                }
 		        		break;
@@ -137,10 +137,10 @@ public class GUI {
 		        		for(int i = 0; i<5; ++i){
 		                	for(int j = 0; j<6; ++j) {
 		                			if(i==j || (i==3 && j==5)) {
-		                				Control.destroyed[i][j] = 2;
+		                				Wall.destroyed[i][j] = 2;
 		                			}
 		                			else{
-		                				Control.destroyed[i][j] = 1;
+		                				Wall.destroyed[i][j] = 1;
 		                			}
 		                	}
 		                }
@@ -149,10 +149,10 @@ public class GUI {
 		        		for(int i = 0; i<5; ++i){
 		                	for(int j = 0; j<6; ++j) {
 		                			if((i==2) && (j==2 || j==3)) {
-		                				Control.destroyed[i][j] = 2;
+		                				Wall.destroyed[i][j] = 2;
 		                			}
 		                			else if(i==0 || j==0 || i==4 || j==5){
-		                				Control.destroyed[i][j] = 1;
+		                				Wall.destroyed[i][j] = 1;
 		                			}
 		                	}
 		                }        		
@@ -161,10 +161,10 @@ public class GUI {
 		        		for(int i = 0; i<5; ++i){
 		                	for(int j = 0; j<6; ++j) {
 		                			if(j==5) {
-		                				Control.destroyed[i][j] = 2;
+		                				Wall.destroyed[i][j] = 2;
 		                			}
 		                			else if(j==0 || i==0 || i==2 || i==4){
-		                				Control.destroyed[i][j] = 1;
+		                				Wall.destroyed[i][j] = 1;
 		                			}
 		                	}
 		                }  
@@ -173,16 +173,16 @@ public class GUI {
 		        		for(int i = 0; i<5; ++i){
 		                	for(int j = 0; j<6; ++j) {
 		                			if(j>=3) {
-		                				Control.destroyed[i][j] = 2;
+		                				Wall.destroyed[i][j] = 2;
 		                			}
 		                			else if(j==0 && (i<1 || i>3)){
-		                				Control.destroyed[i][j] = 1;
+		                				Wall.destroyed[i][j] = 1;
 		                			}
 		                			else if(j==1 && i!=2){
-		                				Control.destroyed[i][j] = 1;
+		                				Wall.destroyed[i][j] = 1;
 		                			}
 		                			else if(j==2 || j==3){
-		                				Control.destroyed[i][j] = 1;
+		                				Wall.destroyed[i][j] = 1;
 		                			}
 		                			
 		                	}
@@ -268,24 +268,24 @@ public class GUI {
 	        
 	        graphics.setColor(Color.black);
 	        graphics.setFont(new Font("serif", Font.BOLD, 50));
-	        graphics.drawString(""+ctrl.palya, 200, 40);
+	        graphics.drawString(""+ctrl.palya.palya, 200, 40);
 	        
 	        // téglák
 	        // j-> sorok száma    i-> oszlopok száma
 	        for(int i = 0; i<5; ++i){
 	        	for(int j = 0; j<6; ++j) {
-	        		if(Control.destroyed[i][j] > 0){
+	        		if(Wall.destroyed[i][j] > 0){
 	        			
 	        			// Az egy életû téglák feketék
-	        			if(Control.destroyed[i][j] == 1){
+	        			if(Wall.destroyed[i][j] == 1){
 	        				graphics.setColor(Color.black);
-	        				graphics.fillRect((ctrl.tegla_szelesseg+ctrl.tegla_tavolsag_x)*i+ctrl.tegla_eltolas_x,(ctrl.tegla_magassag+ctrl.tegla_tavolsag_y)*j+ctrl.tegla_eltolas_y,ctrl.tegla_szelesseg,ctrl.tegla_magassag);
+	        				graphics.fillRect((ctrl.palya.tegla_szelesseg+ctrl.palya.tegla_tavolsag_x)*i+ctrl.palya.tegla_eltolas_x,(ctrl.palya.tegla_magassag+ctrl.palya.tegla_tavolsag_y)*j+ctrl.palya.tegla_eltolas_y,ctrl.palya.tegla_szelesseg,ctrl.palya.tegla_magassag);
 	        			}
 	        			
 	        			// A két életû téglák pirosak
-	        			if(Control.destroyed[i][j] == 2){
+	        			if(Wall.destroyed[i][j] == 2){
 	        				graphics.setColor(Color.red);
-	        				graphics.fillRect((ctrl.tegla_szelesseg+ctrl.tegla_tavolsag_x)*i+ctrl.tegla_eltolas_x,(ctrl.tegla_magassag+ctrl.tegla_tavolsag_y)*j+ctrl.tegla_eltolas_y,ctrl.tegla_szelesseg,ctrl.tegla_magassag);
+	        				graphics.fillRect((ctrl.palya.tegla_szelesseg+ctrl.palya.tegla_tavolsag_x)*i+ctrl.palya.tegla_eltolas_x,(ctrl.palya.tegla_magassag+ctrl.palya.tegla_tavolsag_y)*j+ctrl.palya.tegla_eltolas_y,ctrl.palya.tegla_szelesseg,ctrl.palya.tegla_magassag);
 	        			}
 	        		}
 	        	}

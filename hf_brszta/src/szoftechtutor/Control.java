@@ -44,13 +44,16 @@ public class Control implements ActionListener, MouseListener, MouseMotionListen
 	private int uto.poz = 426;
 	*/
 	public Bat uto;
-	public int tegla_eltolas_x = 50;
-	public int tegla_eltolas_y = 20;
-	public int tegla_tavolsag_x = 130; //120
-	public int tegla_tavolsag_y = 30; // 20
-	public int tegla_szelesseg = 80;
-	public int tegla_magassag = 40;
+	/*
+	public int palya.tegla_eltolas_x = 50;
+	public int palya.tegla_eltolas_y = 20;
+	public int palya.tegla_tavolsag_x = 130; //120
+	public int palya.tegla_tavolsag_y = 30; // 20
+	public int palya.tegla_szelesseg = 80;
+	public int palya.tegla_magassag = 40;
 	public int palya = 1; // 1...5
+	*/
+	public Wall palya;
 	/*
 	public int jatekos.score = 0;
 	public int jatekos.lives = 3;
@@ -58,7 +61,6 @@ public class Control implements ActionListener, MouseListener, MouseMotionListen
 	public Player jatekos;
 	public boolean clear = true;
 	public boolean gameover = true;
-	public static int[][] destroyed = new int[5][6];
 	public boolean click = false; //true;
 	
 	private GUI gui;
@@ -69,6 +71,7 @@ public class Control implements ActionListener, MouseListener, MouseMotionListen
 		labda = new Ball();
 		uto = new Bat();
 		jatekos = new Player();
+		palya = new Wall();
 	}
 
 	void setGUI(GUI g) {
@@ -115,7 +118,7 @@ public class Control implements ActionListener, MouseListener, MouseMotionListen
 		
 		for(int i = 0; i<5; ++i){
         	for(int j = 0; j<6; ++j) {
-        		wall += " " + Control.destroyed[i][j];
+        		wall += " " + Wall.destroyed[i][j];
         	}
         }   
 		try{
@@ -136,7 +139,7 @@ public class Control implements ActionListener, MouseListener, MouseMotionListen
 		/*
 		for(int i = 0; i<5; ++i){
         	for(int j = 0; j<6; ++j) {
-        		wall += Control.destroyed[i][j];
+        		wall += Control.Wall.destroyed[i][j];
         	}
         }   
         */
@@ -148,7 +151,7 @@ public class Control implements ActionListener, MouseListener, MouseMotionListen
 			jatekos.lives = sc.nextInt();
 			while(sc.hasNext()){
 				wall = sc.nextInt();
-				Control.destroyed[i][j] = wall;
+				Wall.destroyed[i][j] = wall;
 				j++;
 				if(j == 6){
 					i++;
@@ -213,18 +216,18 @@ public class Control implements ActionListener, MouseListener, MouseMotionListen
         // j-> sorok száma    i-> oszlopok száma
         for(int i = 0; i<5; ++i){
         	for(int j = 0; j<6; ++j) {
-        		if(destroyed[i][j] > 0){
+        		if(Wall.destroyed[i][j] > 0){
         			
         			// Az egy életû téglák feketék
-        			if(destroyed[i][j] == 1){
+        			if(Wall.destroyed[i][j] == 1){
         				faltoro.setColor(Color.black);
-        				faltoro.fillRect((tegla_szelesseg+tegla_tavolsag_x)*i+tegla_eltolas_x,(tegla_magassag+tegla_tavolsag_y)*j+tegla_eltolas_y,tegla_szelesseg,tegla_magassag);
+        				faltoro.fillRect((palya.tegla_szelesseg+palya.tegla_tavolsag_x)*i+palya.tegla_eltolas_x,(palya.tegla_magassag+palya.tegla_tavolsag_y)*j+palya.tegla_eltolas_y,palya.tegla_szelesseg,palya.tegla_magassag);
         			}
         			
         			// A két életû téglák pirosak
-        			if(destroyed[i][j] == 2){
+        			if(Wall.destroyed[i][j] == 2){
         				faltoro.setColor(Color.red);
-        				faltoro.fillRect((tegla_szelesseg+tegla_tavolsag_x)*i+tegla_eltolas_x,(tegla_magassag+tegla_tavolsag_y)*j+tegla_eltolas_y,tegla_szelesseg,tegla_magassag);
+        				faltoro.fillRect((palya.tegla_szelesseg+palya.tegla_tavolsag_x)*i+palya.tegla_eltolas_x,(palya.tegla_magassag+palya.tegla_tavolsag_y)*j+palya.tegla_eltolas_y,palya.tegla_szelesseg,palya.tegla_magassag);
         			}
         		}
         	}
@@ -307,32 +310,32 @@ public class Control implements ActionListener, MouseListener, MouseMotionListen
 		//Téglák kezelése
 		for(int i = 0; i<5; ++i){
         	for(int j = 0; j<6; ++j) {
-        		if(destroyed[i][j]>0){	
+        		if(Wall.destroyed[i][j]>0){	
    				
         			// tégla bal oldalát érte
-        			if((labda.x==(tegla_szelesseg+tegla_tavolsag_x)*i+tegla_eltolas_x-labda.r) && (labda.y>(tegla_magassag+tegla_tavolsag_y)*j+tegla_eltolas_y-labda.r-1) && (labda.y<(tegla_magassag+tegla_tavolsag_y)*j+tegla_eltolas_y+tegla_magassag+labda.r+1) && (labda.sebesseg_x>0)){
-        				destroyed[i][j]--;
+        			if((labda.x==(palya.tegla_szelesseg+palya.tegla_tavolsag_x)*i+palya.tegla_eltolas_x-labda.r) && (labda.y>(palya.tegla_magassag+palya.tegla_tavolsag_y)*j+palya.tegla_eltolas_y-labda.r-1) && (labda.y<(palya.tegla_magassag+palya.tegla_tavolsag_y)*j+palya.tegla_eltolas_y+palya.tegla_magassag+labda.r+1) && (labda.sebesseg_x>0)){
+        				Wall.destroyed[i][j]--;
         				jatekos.score += 5;
         				labda.sebesseg_x = -1*labda.sebesseg_x;
         			}
         		
         			// tégla jobb oldalát érte
-        			if((labda.x==(tegla_szelesseg+tegla_tavolsag_x)*i+tegla_eltolas_x+tegla_szelesseg+labda.r) && (labda.y>(tegla_magassag+tegla_tavolsag_y)*j+tegla_eltolas_y-labda.r-1) && (labda.y<(tegla_magassag+tegla_tavolsag_y)*j+tegla_eltolas_y+tegla_magassag+labda.r+1) && (labda.sebesseg_x<0)){
-        				destroyed[i][j]--;
+        			if((labda.x==(palya.tegla_szelesseg+palya.tegla_tavolsag_x)*i+palya.tegla_eltolas_x+palya.tegla_szelesseg+labda.r) && (labda.y>(palya.tegla_magassag+palya.tegla_tavolsag_y)*j+palya.tegla_eltolas_y-labda.r-1) && (labda.y<(palya.tegla_magassag+palya.tegla_tavolsag_y)*j+palya.tegla_eltolas_y+palya.tegla_magassag+labda.r+1) && (labda.sebesseg_x<0)){
+        				Wall.destroyed[i][j]--;
         				jatekos.score += 5;
         				labda.sebesseg_x = -1*labda.sebesseg_x;
         			}
         		
         			// tégla felsõ oldalát érte
-        			if((labda.y==(tegla_magassag+tegla_tavolsag_y)*j+tegla_eltolas_y-labda.r) && (labda.x>(tegla_szelesseg+tegla_tavolsag_x)*i+tegla_eltolas_x-labda.r) && (labda.x<(tegla_szelesseg+tegla_tavolsag_x)*i+tegla_eltolas_x+labda.r+tegla_szelesseg) && (labda.sebesseg_y>0)){
-        				destroyed[i][j]--;
+        			if((labda.y==(palya.tegla_magassag+palya.tegla_tavolsag_y)*j+palya.tegla_eltolas_y-labda.r) && (labda.x>(palya.tegla_szelesseg+palya.tegla_tavolsag_x)*i+palya.tegla_eltolas_x-labda.r) && (labda.x<(palya.tegla_szelesseg+palya.tegla_tavolsag_x)*i+palya.tegla_eltolas_x+labda.r+palya.tegla_szelesseg) && (labda.sebesseg_y>0)){
+        				Wall.destroyed[i][j]--;
         				jatekos.score += 5;
         				labda.sebesseg_y = -1*labda.sebesseg_y;
         			}
         		
         			// tégla alsó oldalát érte
-        			if((labda.y==(tegla_magassag+tegla_tavolsag_y)*j+tegla_eltolas_y+tegla_magassag+labda.r) && (labda.x>(tegla_szelesseg+tegla_tavolsag_x)*i+tegla_eltolas_x-labda.r) && (labda.x<(tegla_szelesseg+tegla_tavolsag_x)*i+tegla_eltolas_x+tegla_szelesseg+labda.r) && (labda.sebesseg_y<0)){
-        				destroyed[i][j]--;
+        			if((labda.y==(palya.tegla_magassag+palya.tegla_tavolsag_y)*j+palya.tegla_eltolas_y+palya.tegla_magassag+labda.r) && (labda.x>(palya.tegla_szelesseg+palya.tegla_tavolsag_x)*i+palya.tegla_eltolas_x-labda.r) && (labda.x<(palya.tegla_szelesseg+palya.tegla_tavolsag_x)*i+palya.tegla_eltolas_x+palya.tegla_szelesseg+labda.r) && (labda.sebesseg_y<0)){
+        				Wall.destroyed[i][j]--;
         				jatekos.score += 5;
         				labda.sebesseg_y = -1*labda.sebesseg_y;
         			} 		
@@ -342,14 +345,14 @@ public class Control implements ActionListener, MouseListener, MouseMotionListen
 		clear=true;
 		for(int i = 0; i<5; ++i){
         	for(int j = 0; j<6; ++j) {
-        		if(destroyed[i][j]>0){	
+        		if(Wall.destroyed[i][j]>0){	
         			clear=false;
           		}
         	}	
         }
 	if (clear==true)  //szintet léptünk
 	{
-		palya++;
+		palya.palya++;
 		//jatek_sebessege = 5;
 		//timer.setDelay(jatek_sebessege); itt kéne állítani a gui-ban lévõ timer késleltetését
 		GUI.palyafelepites(palya);
@@ -419,7 +422,7 @@ public class Control implements ActionListener, MouseListener, MouseMotionListen
 		{
 			jatekos.lives=3;
 			jatekos.score=0;
-			palya=1;
+			palya.palya=1;
 			GUI.palyafelepites(palya);
 			click=true;
 		}
@@ -480,7 +483,7 @@ public class Control implements ActionListener, MouseListener, MouseMotionListen
 	case 1:
 		for(int i = 0; i<5; ++i){
         	for(int j = 0; j<6; ++j) {
-        			faltoro.destroyed[i][j] = 1;
+        			faltoro.Wall.destroyed[i][j] = 1;
         	}
         }
 		break;
@@ -488,10 +491,10 @@ public class Control implements ActionListener, MouseListener, MouseMotionListen
 		for(int i = 0; i<5; ++i){
         	for(int j = 0; j<6; ++j) {
         			if(i==j || (i==3 && j==5)) {
-        				faltoro.destroyed[i][j] = 2;
+        				faltoro.Wall.destroyed[i][j] = 2;
         			}
         			else{
-        				faltoro.destroyed[i][j] = 1;
+        				faltoro.Wall.destroyed[i][j] = 1;
         			}
         	}
 		}
@@ -500,10 +503,10 @@ public class Control implements ActionListener, MouseListener, MouseMotionListen
 		for(int i = 0; i<5; ++i){
         	for(int j = 0; j<6; ++j) {
         			if((i==2) && (j==2 || j==3)) {
-        				faltoro.destroyed[i][j] = 2;
+        				faltoro.Wall.destroyed[i][j] = 2;
         			}
         			else if(i==0 || j==0 || i==4 || j==5){
-        				faltoro.destroyed[i][j] = 1;
+        				faltoro.Wall.destroyed[i][j] = 1;
         			}
         	}
         }        	
