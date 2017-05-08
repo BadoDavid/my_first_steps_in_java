@@ -270,6 +270,10 @@ public class GUI {
 	        graphics.setFont(new Font("serif", Font.BOLD, 50));
 	        graphics.drawString(""+ctrl.palya.palya, 200, 40);
 	        
+	        graphics.setColor(Color.black);
+	        graphics.setFont(new Font("serif", Font.BOLD, 50));
+	        graphics.drawString(""+ctrl.GameStopped, 800, 40);
+	        
 	        // téglák
 	        // j-> sorok száma    i-> oszlopok száma
 	        for(int i = 0; i<5; ++i){

@@ -251,8 +251,17 @@ public class Control implements ActionListener, MouseListener, MouseMotionListen
 	
 	void BallMove()
 	{
-		labda.poz_x = labda.poz_x + labda.sebesseg_x;
-		labda.poz_y = labda.poz_y + labda.sebesseg_y;
+		if (GameStopped == true)
+			{
+			labda.poz_x = uto.poz+60;
+			labda.poz_y = 640;
+			}
+		else
+			{
+			labda.poz_x = labda.poz_x + labda.sebesseg_x;
+			labda.poz_y = labda.poz_y + labda.sebesseg_y;
+			}
+		
 	}
 	
 	void BallFallen()
@@ -400,6 +409,7 @@ public class Control implements ActionListener, MouseListener, MouseMotionListen
 		labda.sebesseg_y = 0;
 		labda.sebesseg_x = 0;
 		click=true;
+		GameStopped=true;
 	}
 	
 		gui.repaint(); // képernyõ újrarajzolása
@@ -458,6 +468,7 @@ public class Control implements ActionListener, MouseListener, MouseMotionListen
 		jatekos.lives=3;
 		jatekos.score=0;
 		palya.palya=1;
+		GameStopped=true;
 		GUI.palyafelepites(palya);
 	}
 
