@@ -12,4 +12,21 @@ public class Wall {
 	
 	public static int[][] destroyed = new int[5][6];
 	
+	void HandleBricks()
+	{
+		
+	}
+	
+	boolean IsEverythingDestroyed(){
+		boolean clear=true;
+		for(int i = 0; i<5; ++i){
+        	for(int j = 0; j<6; ++j) {
+        		if(Wall.destroyed[i][j]>0){	
+        			clear=false;
+          		}
+        	}	
+        }
+		return clear;
+	}
+	
 }

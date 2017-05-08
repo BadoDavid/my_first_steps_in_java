@@ -6,5 +6,10 @@ public class Bat {
 	public int size_y = 20;
 	public int poz = 426;
 	
+	public void setPoz(int poz) {
+		this.poz = poz;
+	}
+	
+	
 
 }

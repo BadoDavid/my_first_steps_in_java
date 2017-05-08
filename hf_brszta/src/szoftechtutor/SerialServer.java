@@ -48,7 +48,7 @@ public class SerialServer extends Network {
 				while (true) {
 					//Point received = (Point) in.readObject();
 					//ctrl.clickReceived(received);
-					ctrl.start_game();
+					ctrl.start_network_game();
 				}
 			} catch (Exception ex) {
 				System.out.println(ex.getMessage());

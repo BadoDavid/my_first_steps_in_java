@@ -69,7 +69,7 @@ public class GUI {
 		menuItem.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				ctrl.click=true;
+				ctrl.startGameEn();
 			}
 		});
 		menu.add(menuItem);
