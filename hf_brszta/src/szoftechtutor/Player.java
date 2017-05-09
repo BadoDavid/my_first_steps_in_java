@@ -12,6 +12,20 @@ public class Player {
 	public boolean intop10 = false;
 	public String name;
 	public int place = 0;
-
+	
+		
+	public int getScore() {
+		return score;
+	}
+	public void setScore(int score) {
+		this.score = score;
+	}
+	public int getLives() {
+		return lives;
+	}
+	public void setLives(int lives) {
+		this.lives = lives;
+	}
+	
 
 }

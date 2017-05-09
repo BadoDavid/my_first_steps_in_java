@@ -93,7 +93,7 @@ public class Control implements ActionListener, MouseListener, MouseMotionListen
 	net.connect("192.168.0.102");
 	}	
 	
-	void start_network_game(){
+	void startNetworkGame(){
 		if (gameover==true)
 		{
 			jatekos.lives=3;
@@ -115,8 +115,9 @@ public class Control implements ActionListener, MouseListener, MouseMotionListen
 	}
 	
 	void startGame(){
-		labda.sebesseg_x = 0;
-		labda.sebesseg_y = 1;
+		labda.startBall(0, 1);
+		//labda.sebesseg_x = 0;
+		//labda.sebesseg_y = 1;
 		gui.repaint();
 		click=false;
 		GameStopped=false;
@@ -249,29 +250,25 @@ public class Control implements ActionListener, MouseListener, MouseMotionListen
 		}
 	*/
 	
-	void BallMove()
-	{
-		if (GameStopped == true)
-			{
-			labda.poz_x = uto.poz+60;
-			labda.poz_y = 640;
-			}
-		else
-			{
-			labda.poz_x = labda.poz_x + labda.sebesseg_x;
-			labda.poz_y = labda.poz_y + labda.sebesseg_y;
-			}
-		
+	boolean isGameOver(){
+		if (jatekos.getLives() == 0){
+			gameover=true;
+			return true;
+		} 
+		else {
+			return false;
+		}	
 	}
 	
-	void BallFallen()
+
+	void gameRestart(boolean decLives)
 	{
 			uto.poz = 426;
 			labda.poz_x = 480;
 			labda.poz_y = 640;
 			labda.sebesseg_y = 0;
 			labda.sebesseg_x = 0;
-			if (jatekos.lives>0){
+			if (jatekos.lives>0 && decLives){
 				jatekos.lives--;  //-1 élet
 			//jatek_sebessege = 5;
 			//timer.setDelay(jatek_sebessege); itt kéne állítani a gui-ban lévõ timer késleltetését
@@ -280,85 +277,25 @@ public class Control implements ActionListener, MouseListener, MouseMotionListen
 			GameStopped=true;
 	}
 	
-	void BallCatched(){
-        if (labda.poz_x < (uto.poz + 30)) {
-        	labda.sebesseg_x = -1;
-        	labda.sebesseg_y = -1;
-        }
-
-        if (labda.poz_x >= (uto.poz + 30) && labda.poz_x < (uto.poz + 60)) {
-        	labda.sebesseg_x = -1;
-        	labda.sebesseg_y = -1 * labda.sebesseg_y;
-        }
-
-        if (labda.poz_x >= (uto.poz + 60) && labda.poz_x < (uto.poz + 90)) {
-        	labda.sebesseg_x = 0;
-        	labda.sebesseg_y = -1;
-        }
-
-        if (labda.poz_x >= (uto.poz + 90) && labda.poz_x < (uto.poz + 120)) {
-        	labda.sebesseg_x = 1;
-        	labda.sebesseg_y = -1*labda.sebesseg_y;
-        }
-
-        if (labda.poz_x > (uto.poz + 120)) {
-        	labda.sebesseg_x = 1;
-        	labda.sebesseg_y = -1;
-        }
-	}
 	
-		// bal fal
-	void LeftBorderReached(){
-			labda.sebesseg_x = -1*labda.sebesseg_x;
-		}
-				
-		// jobb fal
-	void RightBorderReached(){
-			labda.sebesseg_x = -1*labda.sebesseg_x;
-		}
-				
-	void TopBorderReached(){
-			labda.sebesseg_y = -1*labda.sebesseg_y;
-		}
-				
-	void BottomBorderReached(){
-			labda.sebesseg_y = -1*labda.sebesseg_y;
-		}
-	
-	void ScoreIncrease(int inc)
-	{
-		jatekos.score+=inc;
-	}
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		BallMove();
-		labda.x = labda.poz_x+(labda.size/2); // labda középpontjának x pozíciója
-		labda.y = labda.poz_y+(labda.size/2); // labda középpontjának y pozíciója
-		labda.r = labda.size/2; // labda sugara
 		
-		if(labda.poz_y > 680){
-			BallFallen(); // leesett a labda
+		labda.BallMove(uto.getPoz(), GameStopped);
+		
+		labda.setBall();
+		
+		if(labda.BallFallen()){
+			gameRestart(true); // leesett a labda
 		}
 		
 		// ütõt ért a labda
-		if((labda.poz_y == 645) && (labda.poz_x >= (uto.poz-14)) && (labda.poz_x <= (uto.poz+uto.size_x+14))){
-			BallCatched();
-		}
+		labda.BallCatched(uto);
 		
-		// bal fal
-		if(labda.poz_x < 10){
-			LeftBorderReached();
-		}
-		
-		// jobb fal
-		if(labda.poz_x > 970){
-			RightBorderReached();
-		}
-		
-		// tetõ
-		if(labda.poz_y < 10){
-			TopBorderReached();
-		}
+		labda.checkBorder();
+	
+
 		
 		//Téglák kezelése
 		for(int i = 0; i<5; ++i){
@@ -368,29 +305,29 @@ public class Control implements ActionListener, MouseListener, MouseMotionListen
         			// tégla bal oldalát érte
         			if((labda.x==(palya.tegla_szelesseg+palya.tegla_tavolsag_x)*i+palya.tegla_eltolas_x-labda.r) && (labda.y>(palya.tegla_magassag+palya.tegla_tavolsag_y)*j+palya.tegla_eltolas_y-labda.r-1) && (labda.y<(palya.tegla_magassag+palya.tegla_tavolsag_y)*j+palya.tegla_eltolas_y+palya.tegla_magassag+labda.r+1) && (labda.sebesseg_x>0)){
         				Wall.destroyed[i][j]--;
-        				ScoreIncrease(5);
-        				RightBorderReached();
+        				jatekos.setScore(jatekos.getScore()+5);
+        				labda.sebesseg_x = -1*labda.sebesseg_x;
         			}
         		
         			// tégla jobb oldalát érte
         			if((labda.x==(palya.tegla_szelesseg+palya.tegla_tavolsag_x)*i+palya.tegla_eltolas_x+palya.tegla_szelesseg+labda.r) && (labda.y>(palya.tegla_magassag+palya.tegla_tavolsag_y)*j+palya.tegla_eltolas_y-labda.r-1) && (labda.y<(palya.tegla_magassag+palya.tegla_tavolsag_y)*j+palya.tegla_eltolas_y+palya.tegla_magassag+labda.r+1) && (labda.sebesseg_x<0)){
         				Wall.destroyed[i][j]--;
-        				ScoreIncrease(5);
-        				LeftBorderReached();
+        				jatekos.setScore(jatekos.getScore()+5);
+        				labda.sebesseg_x = -1*labda.sebesseg_x;
         			}
         		
         			// tégla felsõ oldalát érte
         			if((labda.y==(palya.tegla_magassag+palya.tegla_tavolsag_y)*j+palya.tegla_eltolas_y-labda.r) && (labda.x>(palya.tegla_szelesseg+palya.tegla_tavolsag_x)*i+palya.tegla_eltolas_x-labda.r) && (labda.x<(palya.tegla_szelesseg+palya.tegla_tavolsag_x)*i+palya.tegla_eltolas_x+labda.r+palya.tegla_szelesseg) && (labda.sebesseg_y>0)){
         				Wall.destroyed[i][j]--;
-        				ScoreIncrease(5);
-        				BottomBorderReached();
+        				jatekos.setScore(jatekos.getScore()+5);
+        				labda.sebesseg_y = -1*labda.sebesseg_y;
         			}
         		
         			// tégla alsó oldalát érte
         			if((labda.y==(palya.tegla_magassag+palya.tegla_tavolsag_y)*j+palya.tegla_eltolas_y+palya.tegla_magassag+labda.r) && (labda.x>(palya.tegla_szelesseg+palya.tegla_tavolsag_x)*i+palya.tegla_eltolas_x-labda.r) && (labda.x<(palya.tegla_szelesseg+palya.tegla_tavolsag_x)*i+palya.tegla_eltolas_x+palya.tegla_szelesseg+labda.r) && (labda.sebesseg_y<0)){
         				Wall.destroyed[i][j]--;
-        				ScoreIncrease(5);
-        				TopBorderReached();
+        				jatekos.setScore(jatekos.getScore()+5);
+        				labda.sebesseg_y = -1*labda.sebesseg_y;
         			} 		
         		}
         	}
@@ -403,13 +340,7 @@ public class Control implements ActionListener, MouseListener, MouseMotionListen
 		//jatek_sebessege = 5;
 		//timer.setDelay(jatek_sebessege); itt kéne állítani a gui-ban lévõ timer késleltetését
 		GUI.palyafelepites(palya);
-		uto.poz = 426;
-		labda.poz_x = 480;
-		labda.poz_y = 640;
-		labda.sebesseg_y = 0;
-		labda.sebesseg_x = 0;
-		click=true;
-		GameStopped=true;
+		gameRestart(false);
 	}
 	
 		gui.repaint(); // képernyõ újrarajzolása

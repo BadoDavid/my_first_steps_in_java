@@ -225,14 +225,13 @@ public class GUI {
 	    protected void paintComponent(Graphics graphics) {
 			super.paintComponent(graphics);
 			
-			if (ctrl.jatekos.lives == 0)
+			if (ctrl.isGameOver())
 				{
-				ctrl.gameover=true;
 				graphics.setColor(Color.red);
 				graphics.setFont(new Font("serif", Font.BOLD, 50));
 				graphics.drawString("GAME OVER", 350, 300);
 				graphics.setFont(new Font("serif", Font.BOLD, 40));
-				graphics.drawString("Your score:  " +ctrl.jatekos.score, 380, 500);
+				graphics.drawString("Your score:  " +ctrl.jatekos.getScore(), 380, 500);
 				}
 			
 			else {
@@ -242,28 +241,18 @@ public class GUI {
 	        
 	        // ütõ beállításai
 				graphics.setColor(Color.blue); // ütõ színének beállítása
-	        
-	        if(ctrl.uto.poz>852){ // ütõ mozgásának korlátozása
-	        	ctrl.uto.poz=852;
-	        }
-	        
-	        if(ctrl.uto.poz<10){ // ütõ mozgásának korlátozása
-	        	ctrl.uto.poz=10;
-	        }
-	        
-	        
-	        graphics.fillRect(ctrl.uto.poz, 668, ctrl.uto.size_x, ctrl.uto.size_y);
+				graphics.fillRect(ctrl.uto.poz, 668, ctrl.uto.size_x, ctrl.uto.size_y);
 	        
 	        //pontozás
-	        graphics.setColor(Color.black);
-	        graphics.setFont(new Font("serif", Font.BOLD, 50));
-	        graphics.drawString(""+ctrl.jatekos.score, 600, 40);
-	        
-	        //élet
-	        graphics.setColor(Color.black);
-	        graphics.setFont(new Font("serif", Font.BOLD, 50));
-	        graphics.drawString(""+ctrl.jatekos.lives, 400, 40);
-	        
+		        graphics.setColor(Color.black);
+		        graphics.setFont(new Font("serif", Font.BOLD, 50));
+		        graphics.drawString(""+ctrl.jatekos.score, 600, 40);
+		        
+		    //élet
+		        graphics.setColor(Color.black);
+		        graphics.setFont(new Font("serif", Font.BOLD, 50));
+		        graphics.drawString(""+ctrl.jatekos.lives, 400, 40);
+		        
 	        //pálya
 	        
 	        graphics.setColor(Color.black);
