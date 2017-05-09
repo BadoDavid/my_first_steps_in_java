@@ -366,9 +366,9 @@ public class Control implements ActionListener, MouseListener, MouseMotionListen
 	if (clear==true)  //szintet léptünk
 	{
 		if(palya.palya<5){
-		palya.palya++;
-		palya.BuildWall();
-		gameRestart(false);
+			palya.palya++;
+			palya.BuildWall();
+			gameRestart(false);
 		}
 		else{
 			setGameFinished(true);
@@ -410,6 +410,7 @@ public class Control implements ActionListener, MouseListener, MouseMotionListen
 		if (arg0.getKeyCode() == KeyEvent.VK_L){
 			if(isGameStopped()){
 				loadGame();
+				startGameEn();
 			}
 		}
 	}

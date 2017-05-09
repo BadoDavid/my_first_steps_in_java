@@ -56,7 +56,7 @@ public class SerialClient extends Network {
 	}
 
 	@Override
-	void send(Point p) {
+	void send(Player p) {
 		if (out == null)
 			return;
 		System.out.println("Sending point: " + p + " to Server");
