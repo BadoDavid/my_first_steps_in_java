@@ -43,28 +43,10 @@ public class GUI {
 		//setSize(500, 350);
 		//setDefaultCloseOperation(EXIT_ON_CLOSE);
 		//setLayout(null);
-
-		JFrame window = new JFrame(); // Ablak létrehozása
-		window.setTitle("Faltoro"); // Ablak neve
-		window.setSize(d); // Ablak mérete
-		window.setMaximumSize(d); // Ablak ne legyen átméretezhetõ
-		window.setMinimumSize(d);
-        window.setVisible(true); // Ablak láthatóvá tétele
-        window.setLocationRelativeTo(null); // Ablak elhelyezése a képeryõ közepén
-        window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE); // memória takarítás bezáráskor
-        
-        drawComponent = new DrawComponent();
-        window.add(drawComponent); // hozzáadása az ablakhoz
-        
-        window.addMouseMotionListener(ctrl); // egér mûködtetése
-        window.addMouseListener(ctrl);
-        window.addKeyListener(ctrl);
-		
         JMenuBar menuBar = new JMenuBar();
-
 		JMenu menu = new JMenu("Start");
-		
 		JMenuItem menuItem = new JMenuItem("Single Player");
+		
 		menuItem.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -90,9 +72,23 @@ public class GUI {
 			}
 		});
 		menu.add(menuItem);
-		
 		menuBar.add(menu);
 		
+		JFrame window = new JFrame(); // Ablak létrehozása
+		window.setTitle("Faltoro"); // Ablak neve
+		window.setSize(d); // Ablak mérete
+		window.setMaximumSize(d); // Ablak ne legyen átméretezhetõ
+		window.setMinimumSize(d);
+        window.setVisible(true); // Ablak láthatóvá tétele
+        window.setLocationRelativeTo(null); // Ablak elhelyezése a képeryõ közepén
+        window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE); // memória takarítás bezáráskor
+        
+        drawComponent = new DrawComponent();
+        window.add(drawComponent); // hozzáadása az ablakhoz
+        
+        window.addMouseMotionListener(ctrl); // egér mûködtetése
+        window.addMouseListener(ctrl);
+        window.addKeyListener(ctrl);
 		window.setJMenuBar(menuBar);
 		
 		/*
