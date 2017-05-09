@@ -64,6 +64,7 @@ public class Control implements ActionListener, MouseListener, MouseMotionListen
 	public boolean click = false; //true;
 	public boolean GameStopped = true;
 	public boolean GameFinished = false;
+	public boolean TimerChanged = false;
 	public int eltelt_ido = 0;
 	
 	private GUI gui;
@@ -122,7 +123,7 @@ public class Control implements ActionListener, MouseListener, MouseMotionListen
 		//labda.sebesseg_y = 1;
 		gui.repaint();
 		click=false;
-		GameStopped=false;
+		setGameStopped(false);
 	}
 	
 	void startGameEn(){
@@ -140,7 +141,7 @@ public class Control implements ActionListener, MouseListener, MouseMotionListen
 		try{
 			Formatter f = new Formatter("save.txt");
 			System.out.println("Open");
-			f.format("%d %d %s", jatekos.score, jatekos.lives, wall);
+			f.format("%d %d %d %d %d %s", jatekos.score, jatekos.lives, eltelt_ido, palya.palya, jatek_sebessege, wall);
 			f.close();
 		}
 		catch (Exception e){
@@ -165,6 +166,10 @@ public class Control implements ActionListener, MouseListener, MouseMotionListen
 			Scanner sc = new Scanner(x);
 			jatekos.score = sc.nextInt();
 			jatekos.lives = sc.nextInt();
+			eltelt_ido = sc.nextInt();
+			palya.palya = sc.nextInt();
+			jatek_sebessege = sc.nextInt();
+			TimerChanged=true;
 			while(sc.hasNext()){
 				wall = sc.nextInt();
 				Wall.destroyed[i][j] = wall;
@@ -402,7 +407,9 @@ public class Control implements ActionListener, MouseListener, MouseMotionListen
 			saveGame();
 		}
 		if (arg0.getKeyCode() == KeyEvent.VK_L){
-			loadGame();
+			if(isGameStopped()){
+				loadGame();
+			}
 		}
 	}
 
