@@ -233,7 +233,13 @@ public class GUI {
 				graphics.setFont(new Font("serif", Font.BOLD, 40));
 				graphics.drawString("Your score:  " +ctrl.jatekos.getScore(), 380, 500);
 				}
-			
+			else if(ctrl.isGameFinished()){
+				graphics.setColor(Color.green);
+				graphics.setFont(new Font("serif", Font.BOLD, 50));
+				graphics.drawString("YOU WIN", 390, 300);
+				graphics.setFont(new Font("serif", Font.BOLD, 40));
+				graphics.drawString("Your score:  " +ctrl.jatekos.getScore(), 380, 500);
+			}
 			else {
 				// labda
 				graphics.setColor(Color.cyan); // labda színének bequállítása
@@ -249,7 +255,7 @@ public class GUI {
 				graphics.fillRect(0, 0, 1024, 43);
 				
 				//pálya száma
-		        graphics.setColor(Color.blue);
+		        graphics.setColor(Color.cyan);
 		        graphics.setFont(new Font("serif", Font.BOLD, 40));
 		        graphics.drawString("Level:", 80, 37);
 		        graphics.drawString(""+ctrl.palya.palya, 200, 37);

@@ -63,7 +63,7 @@ public class Control implements ActionListener, MouseListener, MouseMotionListen
 	public boolean gameover = false;
 	public boolean click = false; //true;
 	public boolean GameStopped = true;
-	
+	public boolean GameFinished = false;
 	public int eltelt_ido = 0;
 	
 	private GUI gui;
@@ -262,6 +262,15 @@ public class Control implements ActionListener, MouseListener, MouseMotionListen
 		}	
 	}
 	
+	
+	boolean isGameFinished() {
+		return GameFinished;
+	}
+
+	void setGameFinished(boolean b) {
+		GameFinished = b;
+	}
+	
 
 	void gameRestart(boolean decLives)
 	{
@@ -288,29 +297,28 @@ public class Control implements ActionListener, MouseListener, MouseMotionListen
         			// tégla bal oldalát érte
         			if((labda.x==(palya.tegla_szelesseg+palya.tegla_tavolsag_x)*i+palya.tegla_eltolas_x-labda.r) && (labda.y>(palya.tegla_magassag+palya.tegla_tavolsag_y)*j+palya.tegla_eltolas_y-labda.r-1) && (labda.y<(palya.tegla_magassag+palya.tegla_tavolsag_y)*j+palya.tegla_eltolas_y+palya.tegla_magassag+labda.r+1) && (labda.sebesseg_x>0)){
         				Wall.destroyed[i][j]--;
-        				jatekos.setScore(jatekos.getScore()+(6-jatek_sebessege));
-
+        				jatekos.setScore(jatekos.getScore()+jatek_sebessege);
         				labda.sebesseg_x = -1*labda.sebesseg_x;
         			}
         		
         			// tégla jobb oldalát érte
         			if((labda.x==(palya.tegla_szelesseg+palya.tegla_tavolsag_x)*i+palya.tegla_eltolas_x+palya.tegla_szelesseg+labda.r) && (labda.y>(palya.tegla_magassag+palya.tegla_tavolsag_y)*j+palya.tegla_eltolas_y-labda.r-1) && (labda.y<(palya.tegla_magassag+palya.tegla_tavolsag_y)*j+palya.tegla_eltolas_y+palya.tegla_magassag+labda.r+1) && (labda.sebesseg_x<0)){
         				Wall.destroyed[i][j]--;
-        				jatekos.setScore(jatekos.getScore()+(6-jatek_sebessege));
+        				jatekos.setScore(jatekos.getScore()+jatek_sebessege);
         				labda.sebesseg_x = -1*labda.sebesseg_x;
         			}
         		
         			// tégla felsõ oldalát érte
         			if((labda.y==(palya.tegla_magassag+palya.tegla_tavolsag_y)*j+palya.tegla_eltolas_y-labda.r) && (labda.x>(palya.tegla_szelesseg+palya.tegla_tavolsag_x)*i+palya.tegla_eltolas_x-labda.r) && (labda.x<(palya.tegla_szelesseg+palya.tegla_tavolsag_x)*i+palya.tegla_eltolas_x+labda.r+palya.tegla_szelesseg) && (labda.sebesseg_y>0)){
         				Wall.destroyed[i][j]--;
-        				jatekos.setScore(jatekos.getScore()+(6-jatek_sebessege));
+        				jatekos.setScore(jatekos.getScore()+jatek_sebessege);
         				labda.sebesseg_y = -1*labda.sebesseg_y;
         			}
         		
         			// tégla alsó oldalát érte
         			if((labda.y==(palya.tegla_magassag+palya.tegla_tavolsag_y)*j+palya.tegla_eltolas_y+palya.tegla_magassag+labda.r) && (labda.x>(palya.tegla_szelesseg+palya.tegla_tavolsag_x)*i+palya.tegla_eltolas_x-labda.r) && (labda.x<(palya.tegla_szelesseg+palya.tegla_tavolsag_x)*i+palya.tegla_eltolas_x+palya.tegla_szelesseg+labda.r) && (labda.sebesseg_y<0)){
         				Wall.destroyed[i][j]--;
-        				jatekos.setScore(jatekos.getScore()+(6-jatek_sebessege));
+        				jatekos.setScore(jatekos.getScore()+jatek_sebessege);
         				labda.sebesseg_y = -1*labda.sebesseg_y;
         			} 		
         		}
@@ -345,11 +353,13 @@ public class Control implements ActionListener, MouseListener, MouseMotionListen
 	{
 		if(palya.palya<5){
 		palya.palya++;
-		}
-		//jatek_sebessege = 5;
-		//timer.setDelay(jatek_sebessege); itt kéne állítani a gui-ban lévõ timer késleltetését
 		palya.BuildWall();
 		gameRestart(false);
+		}
+		else{
+			setGameFinished(true);
+		}
+		
 	}
 	
 		gui.repaint(); // képernyõ újrarajzolása
