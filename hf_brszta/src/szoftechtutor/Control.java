@@ -58,12 +58,13 @@ public class Control implements ActionListener, MouseListener, MouseMotionListen
 	public int jatekos.score = 0;
 	public int jatekos.lives = 3;
 	*/
+	
 	public Player jatekos;
 	public boolean clear = true;
 	public boolean gameover = false;
 	public boolean click = false; //true;
 	public boolean GameStopped = true;
-	
+	public int eltelt_ido = 0;
 	private GUI gui;
 	private Network net = null;
 	
@@ -251,16 +252,20 @@ public class Control implements ActionListener, MouseListener, MouseMotionListen
 	
 	void BallMove()
 	{
-		if (GameStopped == true)
-			{
+		if (GameStopped == true){
+			if(uto.poz>852){ // labda mozgásának korlátozása
+				labda.poz_x=912;
+	        }
+			else{
 			labda.poz_x = uto.poz+60;
 			labda.poz_y = 640;
+			
 			}
-		else
-			{
-			labda.poz_x = labda.poz_x + labda.sebesseg_x;
-			labda.poz_y = labda.poz_y + labda.sebesseg_y;
-			}
+		}
+		else{
+				labda.poz_x = labda.poz_x + labda.sebesseg_x;
+				labda.poz_y = labda.poz_y + labda.sebesseg_y;
+		}
 		
 	}
 	
@@ -273,13 +278,13 @@ public class Control implements ActionListener, MouseListener, MouseMotionListen
 			labda.sebesseg_x = 0;
 			if (jatekos.lives>0){
 				jatekos.lives--;  //-1 élet
-			//jatek_sebessege = 5;
-			//timer.setDelay(jatek_sebessege); itt kéne állítani a gui-ban lévõ timer késleltetését
+			jatek_sebessege = 5;
 				}
 			click=true;
 			GameStopped=true;
 	}
 	
+	// ütõt ért a labda
 	void BallCatched(){
         if (labda.poz_x < (uto.poz + 30)) {
         	labda.sebesseg_x = -1;
@@ -307,28 +312,28 @@ public class Control implements ActionListener, MouseListener, MouseMotionListen
         }
 	}
 	
-		// bal fal
 	void LeftBorderReached(){
-			labda.sebesseg_x = -1*labda.sebesseg_x;
-		}
+		labda.sebesseg_x = -1*labda.sebesseg_x;
+	}
 				
-		// jobb fal
 	void RightBorderReached(){
-			labda.sebesseg_x = -1*labda.sebesseg_x;
-		}
-				
+		labda.sebesseg_x = -1*labda.sebesseg_x;
+	}
+	
 	void TopBorderReached(){
-			labda.sebesseg_y = -1*labda.sebesseg_y;
-		}
-				
+		labda.sebesseg_y = -1*labda.sebesseg_y;
+	}
+	
+	
 	void BottomBorderReached(){
-			labda.sebesseg_y = -1*labda.sebesseg_y;
-		}
+		labda.sebesseg_y = -1*labda.sebesseg_y;
+	}
 	
 	void ScoreIncrease(int inc)
 	{
 		jatekos.score+=inc;
 	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		BallMove();
@@ -345,22 +350,27 @@ public class Control implements ActionListener, MouseListener, MouseMotionListen
 			BallCatched();
 		}
 		
-		// bal fal
+		// bal falat ért a labda
 		if(labda.poz_x < 10){
 			LeftBorderReached();
 		}
 		
-		// jobb fal
+		// jobb falat ért a labda
 		if(labda.poz_x > 970){
 			RightBorderReached();
 		}
 		
-		// tetõ
+		// tetõt ért a labda
 		if(labda.poz_y < 10){
 			TopBorderReached();
 		}
 		
+		
+		// wall -> palya
 		//Téglák kezelése
+		
+		//palya.HandleBricks(); EZT KÉNE HASZNÁLNI AZ EZALATT LÉVÕ KÓD HELYETT
+		
 		for(int i = 0; i<5; ++i){
         	for(int j = 0; j<6; ++j) {
         		if(Wall.destroyed[i][j]>0){	
@@ -395,10 +405,13 @@ public class Control implements ActionListener, MouseListener, MouseMotionListen
         		}
         	}
 		}
+		
+		// Annak ellenõrzése, hogy minden tégla lebontásra került-e
 		clear=palya.IsEverythingDestroyed();
 		
 	if (clear==true)  //szintet léptünk
 	{
+		
 		palya.palya++;
 		//jatek_sebessege = 5;
 		//timer.setDelay(jatek_sebessege); itt kéne állítani a gui-ban lévõ timer késleltetését

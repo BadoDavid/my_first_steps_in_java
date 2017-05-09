@@ -37,7 +37,6 @@ public class GUI {
 	private DrawComponent drawComponent;
 	public static Dimension d = new Dimension(1024,768); // Ablak fix méretének beállítása
 
-
 	GUI(Control c) {
 		//super("SzoftechTutor");
 		ctrl = c;
@@ -96,21 +95,26 @@ public class GUI {
 		
 		window.setJMenuBar(menuBar);
 		
-        Timer timer = new Timer(ctrl.jatek_sebessege, ctrl); // ciklikus lefutás
+		/*
+		Timer timer = new Timer(ctrl.jatek_sebessege, ctrl); // ciklikus lefutás
         timer.start();
         
-        // labda gyorsítása 30 másodpercenként
-        Timer timer1 = new Timer(30000, new ActionListener() {
+        // eltelt idõ mérése
+        Timer timer1 = new Timer(1000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
+            	ctrl.eltelt_ido = ctrl.eltelt_ido+1;
             	if(ctrl.jatek_sebessege>1){
+            		if((ctrl.eltelt_ido%30)==0){
             			ctrl.jatek_sebessege = ctrl.jatek_sebessege-1;
             			timer.setDelay(ctrl.jatek_sebessege); 
+            		}
             	}
             }
         });
         timer1.start();
-        
+        */
+		
         palyafelepites(ctrl.palya);
         
         drawComponent.repaint();
@@ -265,14 +269,16 @@ public class GUI {
 	        graphics.drawString(""+ctrl.jatekos.lives, 400, 40);
 	        
 	        //pálya
-	        
 	        graphics.setColor(Color.black);
 	        graphics.setFont(new Font("serif", Font.BOLD, 50));
 	        graphics.drawString(""+ctrl.palya.palya, 200, 40);
 	        
+	        //eltelt ido
 	        graphics.setColor(Color.black);
 	        graphics.setFont(new Font("serif", Font.BOLD, 50));
-	        graphics.drawString(""+ctrl.GameStopped, 800, 40);
+	        graphics.drawString(""+ctrl.eltelt_ido, 800, 40);
+	        
+	        
 	        
 	        // téglák
 	        // j-> sorok száma    i-> oszlopok száma
