@@ -73,11 +73,7 @@ public class Main {
         			timer1.start();
         		}
         	}
-        	if(c.isGameFinished()==true || c.isGameOver()==true){
-        		if(timer1.isRunning()){
-        			timer1.stop();
-        		}	
-        	}
+   
         	if(c.TimerChanged){
         		if(timer.isRunning()){
         			timer.setDelay(c.jatek_sebessege); 

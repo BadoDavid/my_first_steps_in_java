@@ -124,6 +124,7 @@ public class Control implements ActionListener, MouseListener, MouseMotionListen
 		gui.repaint();
 		click=false;
 		setGameStopped(false);
+		setGameFinished(false);
 	}
 	
 	void startGameEn(){
@@ -450,6 +451,14 @@ public class Control implements ActionListener, MouseListener, MouseMotionListen
 			click=true;
 			*/
 		}
+		
+		else if(GameFinished==true)
+		{
+			gameRestart(false);
+			setDefaults();
+			//startGame();
+		}
+		
 		if (click==true)
 		{	
 			if(gameover==false)
@@ -458,6 +467,8 @@ public class Control implements ActionListener, MouseListener, MouseMotionListen
 			}
 			else
 				gameover=false;
+			
+			
 		}
 
 	}
