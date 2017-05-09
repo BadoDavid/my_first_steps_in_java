@@ -73,7 +73,7 @@ public class Ball {
 			sebesseg_x = -1*sebesseg_x;
 		}
 		// tetõ
-		if(poz_y < 10){
+		if(poz_y < 45){
 			sebesseg_y = -1*sebesseg_y;
 		}
 	}

@@ -332,15 +332,20 @@ public class Control implements ActionListener, MouseListener, MouseMotionListen
 		// ütõt ért a labda
 		labda.BallCatched(uto);
 		
+		// ablak szélét érte a labda
 		labda.checkBorder();
-	
+		
+		//Téglák kezelése a labda mozgásának függvényében
 		HandleBricks();		
-
+		
+		// Minden tégla el van távolítva?
 		clear=palya.IsEverythingDestroyed();
 		
 	if (clear==true)  //szintet léptünk
 	{
+		if(palya.palya<5){
 		palya.palya++;
+		}
 		//jatek_sebessege = 5;
 		//timer.setDelay(jatek_sebessege); itt kéne állítani a gui-ban lévõ timer késleltetését
 		palya.BuildWall();

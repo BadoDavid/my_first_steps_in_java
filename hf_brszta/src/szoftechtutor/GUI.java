@@ -235,33 +235,42 @@ public class GUI {
 				}
 			
 			else {
-			// labda
+				// labda
 				graphics.setColor(Color.cyan); // labda színének bequállítása
 				graphics.fillOval(ctrl.labda.poz_x, ctrl.labda.poz_y, ctrl.labda.size, ctrl.labda.size);
 	        
-	        // ütõ beállításai
+				// ütõ
 				graphics.setColor(Color.blue); // ütõ színének beállítása
 				graphics.fillRect(ctrl.uto.poz, 668, ctrl.uto.size_x, ctrl.uto.size_y);
-	        
-	        //pontozás
-		        graphics.setColor(Color.black);
-		        graphics.setFont(new Font("serif", Font.BOLD, 50));
-		        graphics.drawString(""+ctrl.jatekos.score, 600, 40);
+				
+				// vonal
+				graphics.setColor(Color.black); 
+				graphics.fillRect(0, 43, 1024, 2);
+				graphics.fillRect(0, 0, 1024, 43);
+				
+				//pálya száma
+		        graphics.setColor(Color.blue);
+		        graphics.setFont(new Font("serif", Font.BOLD, 40));
+		        graphics.drawString("Level:", 80, 37);
+		        graphics.drawString(""+ctrl.palya.palya, 200, 37);
 		        
-		    //élet
-		        graphics.setColor(Color.black);
-		        graphics.setFont(new Font("serif", Font.BOLD, 50));
-		        graphics.drawString(""+ctrl.jatekos.lives, 400, 40);
+		        //élet
+		        graphics.setColor(Color.red);
+		        graphics.setFont(new Font("serif", Font.BOLD, 40));
+				graphics.drawString("Lives:", 320, 37);
+		        graphics.drawString(""+ctrl.jatekos.lives, 440, 37);
 		        
-	        //pálya
-	        graphics.setColor(Color.black);
-	        graphics.setFont(new Font("serif", Font.BOLD, 50));
-	        graphics.drawString(""+ctrl.palya.palya, 200, 40);
+		        //pontozás
+				graphics.setColor(Color.orange);
+				graphics.setFont(new Font("serif", Font.BOLD, 40));
+				graphics.drawString("Score:", 550, 37);
+		        graphics.drawString(""+ctrl.jatekos.score, 670, 37);
 	        
-	        //eltelt ido
-	        graphics.setColor(Color.black);
-	        graphics.setFont(new Font("serif", Font.BOLD, 50));
-	        graphics.drawString(""+ctrl.eltelt_ido, 800, 40);
+		        //eltelt ido
+		        graphics.setColor(Color.green);
+		        graphics.setFont(new Font("serif", Font.BOLD, 40));
+		        graphics.drawString("Time:", 795, 37);
+		        graphics.drawString(""+ctrl.eltelt_ido, 915, 37);
 	        
 	        
 	        
