@@ -8,7 +8,7 @@ public class Wall {
 	public int tegla_tavolsag_y = 30; // 20
 	public int tegla_szelesseg = 80;
 	public int tegla_magassag = 40;
-	public int palya = 5; // 1...5
+	public int palya = 1; // 1...5
 	
 	public static int[][] destroyed = new int[5][6];
 	
@@ -80,7 +80,7 @@ public class Wall {
 		        	case 5:
 		        		for(int i = 0; i<5; ++i){
 		                	for(int j = 0; j<6; ++j) {
-		                			/*if(j>=3) {
+		                			if(j>=3) {
 		                				destroyed[i][j] = 2;
 		                			}
 		                			else if(j==0 && (i<1 || i>3)){
@@ -91,10 +91,10 @@ public class Wall {
 		                			}
 		                			else if(j==2 || j==3){
 		                				destroyed[i][j] = 1;
-		                			}*/
-		                		if(i==3 && j==4){
+		                			}
+		                		/*if(i==3 && j==4){
 		                			destroyed[i][j] = 1;
-		                		}
+		                		}*/
 		                	}
 		                }  
 		        		break;
