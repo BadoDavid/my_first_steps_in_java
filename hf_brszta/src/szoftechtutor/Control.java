@@ -271,6 +271,14 @@ public class Control implements ActionListener, MouseListener, MouseMotionListen
 		GameFinished = b;
 	}
 	
+	boolean isGameStopped() {
+		return GameStopped;
+	}
+
+	void setGameStopped(boolean b) {
+		GameStopped = b;
+	}
+	
 
 	void gameRestart(boolean decLives)
 	{
@@ -285,7 +293,7 @@ public class Control implements ActionListener, MouseListener, MouseMotionListen
 			//timer.setDelay(jatek_sebessege); itt kéne állítani a gui-ban lévõ timer késleltetését
 				}
 			click=true;
-			GameStopped=true;
+			setGameStopped(true);
 	}
 	
 	//Téglák kezelése
@@ -418,7 +426,7 @@ public class Control implements ActionListener, MouseListener, MouseMotionListen
 		jatekos.lives=3;
 		jatekos.score=0;
 		palya.palya=1;
-		GameStopped=true;
+		setGameStopped(true);
 		palya.BuildWall();
 	}
 

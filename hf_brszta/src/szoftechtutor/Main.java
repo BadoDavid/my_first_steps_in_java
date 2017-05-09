@@ -63,7 +63,7 @@ public class Main {
         });
         
         while(true){
-        	if(c.GameStopped==true){
+        	if(c.isGameStopped()==true){
         		if(timer1.isRunning()){
         			timer1.stop();
         		}	
@@ -72,6 +72,11 @@ public class Main {
         		if(timer1.isRunning()==false){
         			timer1.start();
         		}
+        	}
+        	if(c.isGameFinished()==true || c.isGameOver()){
+        		if(timer1.isRunning()){
+        			timer1.stop();
+        		}	
         	}
         	if(c.clear==true){
         		if(timer1.isRunning()){

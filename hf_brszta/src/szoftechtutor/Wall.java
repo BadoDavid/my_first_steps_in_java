@@ -91,12 +91,12 @@ public class Wall {
 		                			}
 		                			else if(j==2 || j==3){
 		                				destroyed[i][j] = 1;
-		                			}		
+		                			}
 		                	}
 		                }  
 		        		break;
 		        	default:
-		        		// nemjóóóó
+		        		
 		        		break;
 		        }
 			}
