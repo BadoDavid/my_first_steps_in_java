@@ -32,7 +32,6 @@ import javax.swing.WindowConstants;
  * @author Predi
  */
 public class Main {
-	
 	//public static Dimension d = new Dimension(1024,768); // Ablak fix méretének beállítása
 
 	/**
@@ -44,6 +43,49 @@ public class Main {
 		Control c = new Control();
 		GUI g = new GUI(c);
 		c.setGUI(g);
+		
+		
+		Timer timer = new Timer(c.jatek_sebessege, c); // ciklikus lefutás
+        timer.start();
+        
+        // eltelt idõ mérése
+        Timer timer1 = new Timer(1000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+            	c.eltelt_ido = c.eltelt_ido+1;
+            	if(c.jatek_sebessege>1){
+            		if((c.eltelt_ido%30)==0){
+            			c.jatek_sebessege = c.jatek_sebessege-1;
+            			timer.setDelay(c.jatek_sebessege); 
+            		}
+            	}
+            }
+        });
+        
+        while(true){
+        	if(c.GameStopped==true){
+        		if(timer1.isRunning()){
+        			timer1.stop();
+        		}	
+        	}
+        	else{
+        		if(timer1.isRunning()==false){
+        			timer1.start();
+        		}
+        	}
+        	if(c.clear==true){
+        		if(timer1.isRunning()){
+        			timer1.stop();
+        			timer1.restart();
+        			c.eltelt_ido=0;
+        			c.jatek_sebessege=5;
+        			timer.setDelay(c.jatek_sebessege);
+        		}	
+        		
+        	}
+        }
+        
+		
 		
 		/*
 		 * az eredeti Main felépítése
