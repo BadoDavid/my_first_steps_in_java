@@ -12,6 +12,7 @@ public class Bat {
 	}
 	
 	public void setPoz(int poz) {
+		//poz-=size_x/2;
         if(poz>852){ // ütõ mozgásának korlátozása
         	poz=852;
         }

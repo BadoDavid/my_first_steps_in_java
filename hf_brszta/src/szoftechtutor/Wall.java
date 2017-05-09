@@ -24,7 +24,83 @@ public class Wall {
 		return clear;
 	}
 	
-	// IDE KÉNE A PÁLYAFELÉPÍTÕ FÜGGVÉNY IS NEM?
+	public void BuildWall(){
+		// Téglák állapotát jelzõ 2D tömb feltöltése 
+		        //int palya = fal.palya;
+		        for(int i = 0; i<5; ++i){ // Elõször 0-ba állítjuk az összes elemet
+		        	for(int j = 0; j<6; ++j) {	
+		        		destroyed[i][j] = 0;	
+		        	}
+		        }       
+		        
+		        switch (palya){
+		        	case 1:
+		        		for(int i = 0; i<5; ++i){
+		                	for(int j = 0; j<6; ++j) {
+		                		destroyed[i][j] = 1;
+		                	}
+		                }
+		        		break;
+		        	case 2:
+		        		for(int i = 0; i<5; ++i){
+		                	for(int j = 0; j<6; ++j) {
+		                			if(i==j || (i==3 && j==5)) {
+		                				destroyed[i][j] = 2;
+		                			}
+		                			else{
+		                				destroyed[i][j] = 1;
+		                			}
+		                	}
+		                }
+		        		break;
+		        	case 3:
+		        		for(int i = 0; i<5; ++i){
+		                	for(int j = 0; j<6; ++j) {
+		                			if((i==2) && (j==2 || j==3)) {
+		                				destroyed[i][j] = 2;
+		                			}
+		                			else if(i==0 || j==0 || i==4 || j==5){
+		                				destroyed[i][j] = 1;
+		                			}
+		                	}
+		                }        		
+		        		break;
+		        	case 4:
+		        		for(int i = 0; i<5; ++i){
+		                	for(int j = 0; j<6; ++j) {
+		                			if(j==5) {
+		                				destroyed[i][j] = 2;
+		                			}
+		                			else if(j==0 || i==0 || i==2 || i==4){
+		                				destroyed[i][j] = 1;
+		                			}
+		                	}
+		                }  
+		        		break;
+		        	case 5:
+		        		for(int i = 0; i<5; ++i){
+		                	for(int j = 0; j<6; ++j) {
+		                			if(j>=3) {
+		                				destroyed[i][j] = 2;
+		                			}
+		                			else if(j==0 && (i<1 || i>3)){
+		                				destroyed[i][j] = 1;
+		                			}
+		                			else if(j==1 && i!=2){
+		                				destroyed[i][j] = 1;
+		                			}
+		                			else if(j==2 || j==3){
+		                				destroyed[i][j] = 1;
+		                			}
+		                			
+		                	}
+		                }  
+		        		break;
+		        	default:
+		        		// nemjóóóó
+		        		break;
+		        }
+			}
 	
 	void HandleBricks(){
 			

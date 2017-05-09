@@ -115,11 +115,11 @@ public class GUI {
         timer1.start();
         */
 		
-        palyafelepites(ctrl.palya);
+        ctrl.palya.BuildWall();
         
         drawComponent.repaint();
 	}
-	
+	/*
 	public static void palyafelepites(Wall fal){
 		// Téglák állapotát jelzõ 2D tömb feltöltése 
 		        int palya = fal.palya;
@@ -197,7 +197,7 @@ public class GUI {
 		        		break;
 		        }
 			}
-	
+	*/
 	
 	private void drawString(String string, int i, int j) {
 		// TODO Auto-generated method stub

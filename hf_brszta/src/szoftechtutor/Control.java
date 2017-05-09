@@ -64,6 +64,8 @@ public class Control implements ActionListener, MouseListener, MouseMotionListen
 	public boolean click = false; //true;
 	public boolean GameStopped = true;
 	
+	public int eltelt_ido = 0;
+	
 	private GUI gui;
 	private Network net = null;
 	
@@ -277,7 +279,44 @@ public class Control implements ActionListener, MouseListener, MouseMotionListen
 			GameStopped=true;
 	}
 	
-	
+	//Téglák kezelése
+	void HandleBricks(){
+		for(int i = 0; i<5; ++i){
+        	for(int j = 0; j<6; ++j) {
+        		if(Wall.destroyed[i][j]>0){	
+   				
+        			// tégla bal oldalát érte
+        			if((labda.x==(palya.tegla_szelesseg+palya.tegla_tavolsag_x)*i+palya.tegla_eltolas_x-labda.r) && (labda.y>(palya.tegla_magassag+palya.tegla_tavolsag_y)*j+palya.tegla_eltolas_y-labda.r-1) && (labda.y<(palya.tegla_magassag+palya.tegla_tavolsag_y)*j+palya.tegla_eltolas_y+palya.tegla_magassag+labda.r+1) && (labda.sebesseg_x>0)){
+        				Wall.destroyed[i][j]--;
+        				jatekos.setScore(jatekos.getScore()+(6-jatek_sebessege));
+
+        				labda.sebesseg_x = -1*labda.sebesseg_x;
+        			}
+        		
+        			// tégla jobb oldalát érte
+        			if((labda.x==(palya.tegla_szelesseg+palya.tegla_tavolsag_x)*i+palya.tegla_eltolas_x+palya.tegla_szelesseg+labda.r) && (labda.y>(palya.tegla_magassag+palya.tegla_tavolsag_y)*j+palya.tegla_eltolas_y-labda.r-1) && (labda.y<(palya.tegla_magassag+palya.tegla_tavolsag_y)*j+palya.tegla_eltolas_y+palya.tegla_magassag+labda.r+1) && (labda.sebesseg_x<0)){
+        				Wall.destroyed[i][j]--;
+        				jatekos.setScore(jatekos.getScore()+(6-jatek_sebessege));
+        				labda.sebesseg_x = -1*labda.sebesseg_x;
+        			}
+        		
+        			// tégla felsõ oldalát érte
+        			if((labda.y==(palya.tegla_magassag+palya.tegla_tavolsag_y)*j+palya.tegla_eltolas_y-labda.r) && (labda.x>(palya.tegla_szelesseg+palya.tegla_tavolsag_x)*i+palya.tegla_eltolas_x-labda.r) && (labda.x<(palya.tegla_szelesseg+palya.tegla_tavolsag_x)*i+palya.tegla_eltolas_x+labda.r+palya.tegla_szelesseg) && (labda.sebesseg_y>0)){
+        				Wall.destroyed[i][j]--;
+        				jatekos.setScore(jatekos.getScore()+(6-jatek_sebessege));
+        				labda.sebesseg_y = -1*labda.sebesseg_y;
+        			}
+        		
+        			// tégla alsó oldalát érte
+        			if((labda.y==(palya.tegla_magassag+palya.tegla_tavolsag_y)*j+palya.tegla_eltolas_y+palya.tegla_magassag+labda.r) && (labda.x>(palya.tegla_szelesseg+palya.tegla_tavolsag_x)*i+palya.tegla_eltolas_x-labda.r) && (labda.x<(palya.tegla_szelesseg+palya.tegla_tavolsag_x)*i+palya.tegla_eltolas_x+palya.tegla_szelesseg+labda.r) && (labda.sebesseg_y<0)){
+        				Wall.destroyed[i][j]--;
+        				jatekos.setScore(jatekos.getScore()+(6-jatek_sebessege));
+        				labda.sebesseg_y = -1*labda.sebesseg_y;
+        			} 		
+        		}
+        	}
+		}
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -295,43 +334,8 @@ public class Control implements ActionListener, MouseListener, MouseMotionListen
 		
 		labda.checkBorder();
 	
+		HandleBricks();		
 
-		
-		//Téglák kezelése
-		for(int i = 0; i<5; ++i){
-        	for(int j = 0; j<6; ++j) {
-        		if(Wall.destroyed[i][j]>0){	
-   				
-        			// tégla bal oldalát érte
-        			if((labda.x==(palya.tegla_szelesseg+palya.tegla_tavolsag_x)*i+palya.tegla_eltolas_x-labda.r) && (labda.y>(palya.tegla_magassag+palya.tegla_tavolsag_y)*j+palya.tegla_eltolas_y-labda.r-1) && (labda.y<(palya.tegla_magassag+palya.tegla_tavolsag_y)*j+palya.tegla_eltolas_y+palya.tegla_magassag+labda.r+1) && (labda.sebesseg_x>0)){
-        				Wall.destroyed[i][j]--;
-        				jatekos.setScore(jatekos.getScore()+5);
-        				labda.sebesseg_x = -1*labda.sebesseg_x;
-        			}
-        		
-        			// tégla jobb oldalát érte
-        			if((labda.x==(palya.tegla_szelesseg+palya.tegla_tavolsag_x)*i+palya.tegla_eltolas_x+palya.tegla_szelesseg+labda.r) && (labda.y>(palya.tegla_magassag+palya.tegla_tavolsag_y)*j+palya.tegla_eltolas_y-labda.r-1) && (labda.y<(palya.tegla_magassag+palya.tegla_tavolsag_y)*j+palya.tegla_eltolas_y+palya.tegla_magassag+labda.r+1) && (labda.sebesseg_x<0)){
-        				Wall.destroyed[i][j]--;
-        				jatekos.setScore(jatekos.getScore()+5);
-        				labda.sebesseg_x = -1*labda.sebesseg_x;
-        			}
-        		
-        			// tégla felsõ oldalát érte
-        			if((labda.y==(palya.tegla_magassag+palya.tegla_tavolsag_y)*j+palya.tegla_eltolas_y-labda.r) && (labda.x>(palya.tegla_szelesseg+palya.tegla_tavolsag_x)*i+palya.tegla_eltolas_x-labda.r) && (labda.x<(palya.tegla_szelesseg+palya.tegla_tavolsag_x)*i+palya.tegla_eltolas_x+labda.r+palya.tegla_szelesseg) && (labda.sebesseg_y>0)){
-        				Wall.destroyed[i][j]--;
-        				jatekos.setScore(jatekos.getScore()+5);
-        				labda.sebesseg_y = -1*labda.sebesseg_y;
-        			}
-        		
-        			// tégla alsó oldalát érte
-        			if((labda.y==(palya.tegla_magassag+palya.tegla_tavolsag_y)*j+palya.tegla_eltolas_y+palya.tegla_magassag+labda.r) && (labda.x>(palya.tegla_szelesseg+palya.tegla_tavolsag_x)*i+palya.tegla_eltolas_x-labda.r) && (labda.x<(palya.tegla_szelesseg+palya.tegla_tavolsag_x)*i+palya.tegla_eltolas_x+palya.tegla_szelesseg+labda.r) && (labda.sebesseg_y<0)){
-        				Wall.destroyed[i][j]--;
-        				jatekos.setScore(jatekos.getScore()+5);
-        				labda.sebesseg_y = -1*labda.sebesseg_y;
-        			} 		
-        		}
-        	}
-		}
 		clear=palya.IsEverythingDestroyed();
 		
 	if (clear==true)  //szintet léptünk
@@ -339,7 +343,7 @@ public class Control implements ActionListener, MouseListener, MouseMotionListen
 		palya.palya++;
 		//jatek_sebessege = 5;
 		//timer.setDelay(jatek_sebessege); itt kéne állítani a gui-ban lévõ timer késleltetését
-		GUI.palyafelepites(palya);
+		palya.BuildWall();
 		gameRestart(false);
 	}
 	
@@ -400,7 +404,7 @@ public class Control implements ActionListener, MouseListener, MouseMotionListen
 		jatekos.score=0;
 		palya.palya=1;
 		GameStopped=true;
-		GUI.palyafelepites(palya);
+		palya.BuildWall();
 	}
 
 	@Override
