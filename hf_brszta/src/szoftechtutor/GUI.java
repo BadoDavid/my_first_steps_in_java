@@ -20,6 +20,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 import javax.swing.WindowConstants;
@@ -36,7 +37,8 @@ public class GUI {
 	private Control ctrl;
 	private DrawComponent drawComponent;
 	public static Dimension d = new Dimension(1024,768); // Ablak fix méretének beállítása
-
+	JFrame window = new JFrame(); // Ablak létrehozása
+	
 	GUI(Control c) {
 		//super("SzoftechTutor");
 		ctrl = c;
@@ -74,7 +76,7 @@ public class GUI {
 		menu.add(menuItem);
 		menuBar.add(menu);
 		
-		JFrame window = new JFrame(); // Ablak létrehozása
+		
 		window.setTitle("Faltoro"); // Ablak neve
 		window.setSize(d); // Ablak mérete
 		window.setMaximumSize(d); // Ablak ne legyen átméretezhetõ
@@ -225,6 +227,7 @@ public class GUI {
 	    protected void paintComponent(Graphics graphics) {
 			super.paintComponent(graphics);
 			
+			
 			if (ctrl.isGameOver())
 				{
 				graphics.setColor(Color.red);
@@ -232,6 +235,13 @@ public class GUI {
 				graphics.drawString("GAME OVER", 350, 300);
 				graphics.setFont(new Font("serif", Font.BOLD, 40));
 				graphics.drawString("Your score:  " +ctrl.jatekos.getScore(), 380, 500);
+				if (!ctrl.jatekos.intop10){
+					ctrl.jatekos.intop10 = true;
+					String name = JOptionPane.showInputDialog(window,
+			                "You can get into TOP10! \n What is your name?", null);
+					ctrl.jatekos.setName(name);
+					System.out.println(ctrl.jatekos.getName());
+				}
 				}
 			else if(ctrl.isGameFinished()){
 				graphics.setColor(Color.green);

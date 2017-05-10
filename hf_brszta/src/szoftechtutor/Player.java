@@ -26,6 +26,25 @@ public class Player {
 	public void setLives(int lives) {
 		this.lives = lives;
 	}
+	public boolean isIntop10() {
+		return intop10;
+	}
+	public void setIntop10(boolean intop10) {
+		this.intop10 = intop10;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public int getPlace() {
+		return place;
+	}
+	public void setPlace(int place) {
+		this.place = place;
+	}
+	
 	
 
 }

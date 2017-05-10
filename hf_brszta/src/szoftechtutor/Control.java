@@ -20,6 +20,7 @@ import javax.swing.JFrame;
 import javax.swing.Timer;
 import javax.swing.WindowConstants;
 
+
 public class Control implements ActionListener, MouseListener, MouseMotionListener, KeyListener   {
 	
 	//public static Dimension dimension = new Dimension(1024,768); // Ablak fix méretének beállítása
@@ -66,6 +67,7 @@ public class Control implements ActionListener, MouseListener, MouseMotionListen
 	public boolean GameFinished = false;
 	public boolean TimerChanged = false;
 	public int eltelt_ido = 0;
+	public Top10 listTop10;
 	
 	private GUI gui;
 	private Network net = null;
@@ -76,7 +78,9 @@ public class Control implements ActionListener, MouseListener, MouseMotionListen
 		uto = new Bat();
 		jatekos = new Player();
 		palya = new Wall();
+		listTop10 = new Top10();
 	}
+	
 
 	void setGUI(GUI g) {
 		gui = g;

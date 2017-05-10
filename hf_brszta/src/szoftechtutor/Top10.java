@@ -43,7 +43,7 @@ public class Top10{
 			if(bestplayers.get(i).score < jatekos.score){
 				jatekos.intop10 = true;
 				jatekos.place = i+1;
-				if (bestplayers.isEmpty()){
+				if (bestplayers.size()==10){
 					bestplayers.remove(bestplayers.size());
 				}
 				bestplayers.add(jatekos.place, jatekos);
