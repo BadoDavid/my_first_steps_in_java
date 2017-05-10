@@ -68,12 +68,12 @@ public class Control implements ActionListener, MouseListener, MouseMotionListen
 	public boolean GameFinished = false;
 	public boolean TimerChanged = false;
 	public int eltelt_ido = 0;
-<<<<<<< HEAD
+
 	public Top10 listTop10;
-=======
+	
 	public int sebx; 
 	public int seby;
->>>>>>> origin/master
+
 	
 	private GUI gui;
 	private Network net = null;

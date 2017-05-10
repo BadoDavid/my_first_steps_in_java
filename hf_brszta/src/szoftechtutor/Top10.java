@@ -37,25 +37,35 @@ public class Top10{
 	}
 	
 
-	void insertPlayer(Player jatekos) {
-		
+	boolean insertPlayer(Player jatekos) {
+		boolean state = false;
 		for (int i = 0; i < bestplayers.size();i++){
 			if(bestplayers.get(i).score < jatekos.score){
 				jatekos.intop10 = true;
+				state = true;
 				jatekos.place = i+1;
+				/*
 				if (bestplayers.size()==10){
 					bestplayers.remove(bestplayers.size());
 				}
 				bestplayers.add(jatekos.place, jatekos);
+				*/
 			}
 		}
+		return state;
 		
 	}
 
 
 
 	void saveTop10(Player jatekos){
-		insertPlayer(jatekos);
+		//insertPlayer(jatekos);
+		
+		if (bestplayers.size()==10){
+			bestplayers.remove(bestplayers.size());
+		}
+		bestplayers.add(jatekos.place, jatekos);
+		
 		Iterator<Player> it = bestplayers.iterator();
 		if (jatekos.intop10){
 			Player other;
