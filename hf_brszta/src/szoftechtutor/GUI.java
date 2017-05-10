@@ -224,6 +224,13 @@ public class GUI {
 		@Override
 	    protected void paintComponent(Graphics graphics) {
 			super.paintComponent(graphics);
+				
+			if (ctrl.isGamePaused())
+				{
+				graphics.setColor(Color.red);
+				graphics.setFont(new Font("serif", Font.BOLD, 50));
+				graphics.drawString("GAME PAUSED!", 300, 500);
+				}
 			
 			if (ctrl.isGameOver())
 				{
