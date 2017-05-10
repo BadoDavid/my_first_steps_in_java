@@ -68,12 +68,24 @@ public class Main {
         			timer1.stop();
         		}	
         	}
-        	else{
+        	if(c.isGameStopped()==false){
         		if(timer1.isRunning()==false){
         			timer1.start();
         		}
         	}
-   
+        	
+        	if(c.isGamePaused()==true){
+        		if(timer1.isRunning()){
+        			timer1.stop();
+        		}
+        	}
+        	
+        	if(c.isGamePaused()==false){
+        		if(timer1.isRunning()==false){
+        			timer1.start();
+        		}	
+        	}
+        	
         	if(c.TimerChanged){
         		if(timer.isRunning()){
         			timer.setDelay(c.jatek_sebessege); 

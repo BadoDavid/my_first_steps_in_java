@@ -64,10 +64,16 @@ public class Control implements ActionListener, MouseListener, MouseMotionListen
 	public boolean gameover = false;
 	public boolean click = false; //true;
 	public boolean GameStopped = true;
+	public boolean GamePaused = false;
 	public boolean GameFinished = false;
 	public boolean TimerChanged = false;
 	public int eltelt_ido = 0;
+<<<<<<< HEAD
 	public Top10 listTop10;
+=======
+	public int sebx; 
+	public int seby;
+>>>>>>> origin/master
 	
 	private GUI gui;
 	private Network net = null;
@@ -271,7 +277,31 @@ public class Control implements ActionListener, MouseListener, MouseMotionListen
 			return false;
 		}	
 	}
+	boolean isGamePaused() {
+		return GamePaused;
+	}
 	
+	void CopySpeeds()
+	{
+	sebx=labda.sebesseg_x;
+	seby=labda.sebesseg_y;
+	}
+	
+	void setGamePaused(boolean a){
+		if (labda.sebesseg_x != 0 || labda.sebesseg_y != 0)
+			CopySpeeds();
+		GamePaused = a;
+		if (a == true)
+		{
+			labda.sebesseg_x=0;
+			labda.sebesseg_y=0;
+		}
+		else
+		{	
+			labda.sebesseg_x=sebx;
+			labda.sebesseg_y=seby;
+		}
+	}
 	
 	boolean isGameFinished() {
 		return GameFinished;
@@ -395,8 +425,6 @@ public class Control implements ActionListener, MouseListener, MouseMotionListen
 		
 	}
 
-
-
 	@Override
 	public void keyPressed(KeyEvent arg0) {
 		// TODO Auto-generated method stub
@@ -417,7 +445,15 @@ public class Control implements ActionListener, MouseListener, MouseMotionListen
 				startGameEn();
 			}
 		}
-	}
+		if (arg0.getKeyCode() == KeyEvent.VK_P){
+			if(isGamePaused())
+				setGamePaused(false);
+			else
+			{
+				setGamePaused(true);
+			}
+		}
+	}		
 
 	@Override
 	public void keyReleased(KeyEvent arg0) {
@@ -556,5 +592,7 @@ public class Control implements ActionListener, MouseListener, MouseMotionListen
 		// nemjóóóó
 		break;*/
     	}
+
+
 
 }
