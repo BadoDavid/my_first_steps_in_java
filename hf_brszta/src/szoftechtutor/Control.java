@@ -409,6 +409,17 @@ public class Control implements ActionListener, MouseListener, MouseMotionListen
 		}
 		
 	}
+		if (isGameOver()){
+			/*
+			if (!jatekos.intop10){
+				if (listTop10.insertPlayer(jatekos)){
+					jatekos.setName(gui.getPlayerName());
+				}
+					System.out.println("Anyád");
+					listTop10.saveTop10(jatekos);
+			}
+			*/
+		}
 	
 		gui.repaint(); // képernyõ újrarajzolása
 	}
@@ -475,6 +486,8 @@ public class Control implements ActionListener, MouseListener, MouseMotionListen
 		jatekos.lives=3;
 		jatekos.score=0;
 		palya.palya=1;
+		jatekos.name="";
+		jatekos.intop10=false;
 		setGameStopped(true);
 		palya.BuildWall();
 		eltelt_ido=0;

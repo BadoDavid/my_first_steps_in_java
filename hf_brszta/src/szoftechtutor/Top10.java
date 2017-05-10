@@ -26,8 +26,10 @@ public class Top10{
 				jatekos.place = sc.nextInt();
 				jatekos.score = sc.nextInt();
 				jatekos.name = sc.next();
-				bestplayers.add(jatekos.place, jatekos);
+				bestplayers.add((jatekos.place-1), jatekos);
+				//bestplayers.add(jatekos);
 			}
+			System.out.println(bestplayers);
 			//f.format("%d %d %s", jatekos.score, jatekos.lives, wall);
 			sc.close();
 		}
@@ -39,11 +41,29 @@ public class Top10{
 
 	boolean insertPlayer(Player jatekos) {
 		boolean state = false;
-		for (int i = 0; i < bestplayers.size();i++){
-			if(bestplayers.get(i).score < jatekos.score){
+		/*
+		if (bestplayers.size() == 0){
+			jatekos.intop10 = true;
+			state = true;
+			jatekos.place = 1;
+		}
+		*/
+		if (bestplayers.size() != 10){
+			jatekos.intop10 = true;
+			state = true;
+			jatekos.place = bestplayers.size()+1;
+		}
+		System.out.println(bestplayers.size());
+		for (int i = bestplayers.size(); i > 0; i--){
+
+			System.out.println("Hello");
+			//int max_score = bestplayers.get(i).score ;
+			if(bestplayers.get(i-1).score < jatekos.score){
+				System.out.println("csao");
 				jatekos.intop10 = true;
 				state = true;
-				jatekos.place = i+1;
+				jatekos.place = bestplayers.get(i-1).place;
+				bestplayers.get(i-1).place++;
 				/*
 				if (bestplayers.size()==10){
 					bestplayers.remove(bestplayers.size());
@@ -52,6 +72,7 @@ public class Top10{
 				*/
 			}
 		}
+
 		return state;
 		
 	}
@@ -64,7 +85,12 @@ public class Top10{
 		if (bestplayers.size()==10){
 			bestplayers.remove(bestplayers.size());
 		}
-		bestplayers.add(jatekos.place, jatekos);
+		
+		System.out.println(bestplayers);
+		
+		bestplayers.add(jatekos.place-1, jatekos);
+		//bestplayers.add(jatekos);
+		System.out.println(bestplayers);
 		
 		Iterator<Player> it = bestplayers.iterator();
 		if (jatekos.intop10){
