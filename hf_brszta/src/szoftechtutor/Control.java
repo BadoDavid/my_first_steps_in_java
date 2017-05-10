@@ -477,6 +477,7 @@ public class Control implements ActionListener, MouseListener, MouseMotionListen
 		palya.palya=1;
 		setGameStopped(true);
 		palya.BuildWall();
+		eltelt_ido=0;
 	}
 
 	@Override
