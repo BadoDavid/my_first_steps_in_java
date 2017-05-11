@@ -15,10 +15,14 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Point;
+
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.Timer;
 import javax.swing.WindowConstants;
+
+import org.omg.CosNaming.IstringHelper;
 
 
 public class Control implements ActionListener, MouseListener, MouseMotionListener, KeyListener   {
@@ -77,6 +81,7 @@ public class Control implements ActionListener, MouseListener, MouseMotionListen
 	
 	private GUI gui;
 	private Network net = null;
+	private int opponentScore = -10;
 	
 	public Control() {
 		super();
@@ -96,38 +101,64 @@ public class Control implements ActionListener, MouseListener, MouseMotionListen
 	if (net != null)
 		net.disconnect();
 	net = new SerialServer(this);
-	net.connect("192.168.0.102");
+	//net.connect("192.168.0.102");
+	net.connect("localhost");
 	}
 	
 	void startClient() {
 	if (net != null)
 		net.disconnect();
 	net = new SerialClient(this);
-	net.connect("192.168.0.102");
+	//net.connect("192.168.0.102");
+	net.connect("localhost");
 	}	
 	
 	void startNetworkGame(){
-		if (gameover==true)
-		{
-			jatekos.lives=3;
-			click=true;
-			
-		}
-		if (click==true)
-		{	
-			if(gameover==false)
-			{
-				labda.sebesseg_x = 0;
-				labda.sebesseg_y = 1;
-				gui.repaint();
-				click=false;
-			}
-			else
-				gameover=false;
+		net.send(-10);
+	}
+	
+	void statsReceived(int p) {
+		opponentScore = p;
+		System.out.println(p);
+		if (isNetworkGame()){
+			if ( opponentScore > jatekos.getScore())
+				setNetworkMessage("YOU LOST!");
+			else if ( opponentScore < jatekos.getScore())
+				setNetworkMessage("YOU WON!");
+			else setNetworkMessage("DRAW!");
+			net.disconnect();
+			click=false;
 		}
 	}
 	
+	boolean networkGame = false;
+	String networkMessage;
+	
+	public boolean isNetworkGame() {
+		return networkGame;
+	}
+
+
+	public void setNetworkGame(boolean networkGame) {
+		this.networkGame = networkGame;
+	}
+
+
+	public String getNetworkMessage() {
+		return networkMessage;
+	}
+
+
+	public void setNetworkMessage(String networkMessage) {
+		this.networkMessage = networkMessage;
+	}
+
+
 	void startGame(){
+		if (net != null) {
+			startNetworkGame();
+			setNetworkGame(false);
+		}
 		labda.startBall(0, 1);
 		//labda.sebesseg_x = 0;
 		//labda.sebesseg_y = 1;
@@ -397,29 +428,53 @@ public class Control implements ActionListener, MouseListener, MouseMotionListen
 		// Minden tégla el van távolítva?
 		clear=palya.IsEverythingDestroyed();
 		
-	if (clear==true)  //szintet léptünk
-	{
-		if(palya.palya<5){
-			palya.palya++;
-			palya.BuildWall();
-			gameRestart(false);
+		//Network 
+		if ((net != null) && !isNetworkGame()){
+			if(isGameOver()|| clear==true){
+				net.send(jatekos.getScore());
+				setNetworkGame(true);
+				if (opponentScore == (-10)){
+					setNetworkMessage("Waiting for the opponent finish the game.");
+					click=false;
+				} else {
+					if ( opponentScore > jatekos.getScore())
+						setNetworkMessage("YOU LOST!");
+					else if ( opponentScore < jatekos.getScore())
+						setNetworkMessage("YOU WON!");
+					else setNetworkMessage("DRAW!");
+					net.disconnect();
+					click=false;
+				}
+				clear=false;
+			}
 		}
-		else{
-			setGameFinished(true);
-		}
+
 		
-	}
-		if (isGameOver()|| isGameFinished()){
+		if (clear==true)  //szintet léptünk
+		{
+			if(palya.palya<5){
+				palya.palya++;
+				palya.BuildWall();
+				gameRestart(false);
+			}
+			else{
+				setGameFinished(true);
+			}
+			
+		}
+		//TOP10
+		if ((isGameOver()|| isGameFinished()) && !isNetworkGame()){
 			
 			if (!jatekos.intop10){
 				if (listTop10.insertPlayer(jatekos)){
 					jatekos.setName(gui.getPlayerName());
-				}
-					System.out.println("Anyád");
 					listTop10.saveTop10(jatekos);
+				}
+				jatekos.intop10=true;
 			}
 			
 		}
+
 	
 		gui.repaint(); // képernyõ újrarajzolása
 	}
@@ -606,6 +661,7 @@ public class Control implements ActionListener, MouseListener, MouseMotionListen
 		// nemjóóóó
 		break;*/
     	}
+
 
 
 

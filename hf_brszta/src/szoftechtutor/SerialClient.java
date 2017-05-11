@@ -18,13 +18,15 @@ public class SerialClient extends Network {
 	private class ReceiverThread implements Runnable {
 
 		public void run() {
+			ctrl.setNetworkGame(true);
 			System.out.println("Waiting for points...");
-			ctrl.click=true;
+			ctrl.setNetworkMessage("Click to start game!");
+			ctrl.startGameEn();
 			try {
 				while (true) {
-					//Point received = (Point) in.readObject();
-					//ctrl.clickReceived(received);
-					ctrl.startNetworkGame();
+					int received = (int) in.readObject();
+					ctrl.statsReceived(received);
+					//ctrl.startNetworkGame();
 				}
 			} catch (Exception ex) {
 				System.out.println(ex.getMessage());
@@ -56,10 +58,14 @@ public class SerialClient extends Network {
 	}
 
 	@Override
-	void send(Player p) {
+	void send(int p) {
+		if(p==(-10)){
+			System.out.println("Sleep!");
+			return;
+		}
 		if (out == null)
 			return;
-		System.out.println("Sending point: " + p + " to Server");
+		System.out.println("Sending score: " + p + " to Server");
 		try {
 			out.writeObject(p);
 			out.flush();

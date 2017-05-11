@@ -24,10 +24,14 @@ public class SerialServer extends Network {
 
 		public void run() {
 			try {
+				ctrl.setNetworkGame(true);
 				System.out.println("Waiting for Client");
+				ctrl.setNetworkMessage("Waiting for Client");
 				clientSocket = serverSocket.accept();
 				System.out.println("Client connected.");
-				ctrl.click=true;
+				ctrl.setNetworkMessage("Client connected! \n Click to start game!");
+				//super.wait(1000);
+				ctrl.startGameEn();
 			} catch (IOException e) {
 				System.err.println("Accept failed.");
 				disconnect();
@@ -46,9 +50,9 @@ public class SerialServer extends Network {
 
 			try {
 				while (true) {
-					//Point received = (Point) in.readObject();
-					//ctrl.clickReceived(received);
-					ctrl.startNetworkGame();
+					int received = (int) in.readObject();
+					ctrl.statsReceived(received);
+					//ctrl.startNetworkGame();
 				}
 			} catch (Exception ex) {
 				System.out.println(ex.getMessage());
@@ -73,10 +77,14 @@ public class SerialServer extends Network {
 	}
 
 	@Override
-	void send(Player p) {
+	void send(int p) {
+		if(p==(-10)){
+			System.out.println("Sleep!");
+			return;
+		}
 		if (out == null)
 			return;
-		System.out.println("Sending point: " + p + " to Client");
+		System.out.println("Sending score: " + p + " to Client");
 		try {
 			out.writeObject(p);
 			out.flush();

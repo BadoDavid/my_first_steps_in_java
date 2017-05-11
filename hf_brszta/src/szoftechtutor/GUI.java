@@ -232,7 +232,7 @@ public class GUI {
 		System.out.println(name);
 		return name;
 	}
-
+	
 	
 	private class DrawComponent extends JComponent {
 
@@ -249,23 +249,15 @@ public class GUI {
 				graphics.setFont(new Font("serif", Font.BOLD, 50));
 				graphics.drawString("GAME PAUSED!", 300, 500);
 				}
+
 			
-			
-			if (ctrl.isGameOver())
+			if (ctrl.isGameOver() && !ctrl.isNetworkGame())
 				{
 				graphics.setColor(Color.red);
 				graphics.setFont(new Font("serif", Font.BOLD, 50));
 				graphics.drawString("GAME OVER", 350, 300);
 				graphics.setFont(new Font("serif", Font.BOLD, 40));
 				graphics.drawString("Your score:  " +ctrl.jatekos.getScore(), 380, 500);
-				/*
-				if (!ctrl.jatekos.intop10){
-					ctrl.jatekos.intop10 = true;
-					String name = JOptionPane.showInputDialog(window,
-			                "You can get into TOP10! \n What is your name?", null);
-					ctrl.jatekos.setName(name);
-					System.out.println(ctrl.jatekos.getName());
-				}*/
 				}
 			else if(ctrl.isGameFinished()){
 				graphics.setColor(Color.green);
@@ -273,6 +265,15 @@ public class GUI {
 				graphics.drawString("YOU WIN", 390, 300);
 				graphics.setFont(new Font("serif", Font.BOLD, 40));
 				graphics.drawString("Your score:  " +ctrl.jatekos.getScore(), 380, 500);
+			}
+			else if (ctrl.isNetworkGame()){
+				String message = ctrl.getNetworkMessage();
+		        graphics.setColor(Color.green);
+		        graphics.setFont(new Font("serif", Font.BOLD, 50));
+				graphics.drawString("NETWORK GAME", 300, 300);
+		        graphics.setFont(new Font("serif", Font.BOLD, 40));
+				//graphics.drawString("", 500, 37);
+		        graphics.drawString(""+message, 500-(8*message.length()), 500);
 			}
 			else {
 				// labda
