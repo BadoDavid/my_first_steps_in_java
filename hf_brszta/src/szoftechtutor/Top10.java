@@ -87,12 +87,9 @@ public class Top10{
 		if (bestplayers.size()==10){
 			bestplayers.remove(bestplayers.size()-1);
 		}
-		
-		System.out.println(bestplayers);
-		
+				
 		bestplayers.add(jatekos.place-1, jatekos);
 		//bestplayers.add(jatekos);
-		System.out.println(bestplayers);
 		
 		Iterator<Player> it = bestplayers.iterator();
 		if (jatekos.intop10){

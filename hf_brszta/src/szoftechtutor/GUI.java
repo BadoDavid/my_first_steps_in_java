@@ -56,6 +56,12 @@ public class GUI {
 			}
 		});
 		menu.add(menuItem);
+		
+		JMenu submenu;
+		
+		//a submenu
+		menu.addSeparator();
+		submenu = new JMenu("Multi Player");
 
 		menuItem = new JMenuItem("Client");
 		menuItem.addActionListener(new ActionListener() {
@@ -64,7 +70,7 @@ public class GUI {
 				ctrl.startClient();
 			}
 		});
-		menu.add(menuItem);
+		submenu.add(menuItem);
 
 		menuItem = new JMenuItem("Server");
 		menuItem.addActionListener(new ActionListener() {
@@ -73,8 +79,10 @@ public class GUI {
 				ctrl.startServer();
 			}
 		});
-		menu.add(menuItem);
+		submenu.add(menuItem);
+		menu.add(submenu);
 		menuBar.add(menu);
+
 		
 		
 		window.setTitle("Faltoro"); // Ablak neve

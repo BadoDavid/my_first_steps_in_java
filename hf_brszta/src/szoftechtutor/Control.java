@@ -409,7 +409,7 @@ public class Control implements ActionListener, MouseListener, MouseMotionListen
 		}
 		
 	}
-		if (isGameOver()){
+		if (isGameOver()|| isGameFinished()){
 			
 			if (!jatekos.intop10){
 				if (listTop10.insertPlayer(jatekos)){
