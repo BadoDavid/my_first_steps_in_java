@@ -16,18 +16,20 @@ public class Top10{
 	public Top10(){
 		super();
 		
-		Player jatekos = new Player();
+		//Player jatekos = new Player();
 
 		try{
 			File x = new File("top10.txt");
 			System.out.println("Read");
 			Scanner sc = new Scanner(x);
 			while(sc.hasNext()){
+				Player jatekos = new Player();
+				
 				jatekos.place = sc.nextInt();
 				jatekos.score = sc.nextInt();
 				jatekos.name = sc.next();
-				bestplayers.add((jatekos.place-1), jatekos);
-				//bestplayers.add(jatekos);
+				//bestplayers.add((jatekos.place-1), jatekos);
+				bestplayers.add(jatekos);
 			}
 			System.out.println(bestplayers);
 			//f.format("%d %d %s", jatekos.score, jatekos.lives, wall);
@@ -79,11 +81,11 @@ public class Top10{
 
 
 
-	void saveTop10(Player jatekos){
+	void saveTop10(Player gamer){
 		//insertPlayer(jatekos);
-		
+		Player jatekos = new Player(gamer);
 		if (bestplayers.size()==10){
-			bestplayers.remove(bestplayers.size());
+			bestplayers.remove(bestplayers.size()-1);
 		}
 		
 		System.out.println(bestplayers);

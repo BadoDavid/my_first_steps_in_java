@@ -13,7 +13,21 @@ public class Player {
 	public String name;
 	public int place = 0;
 	
+	
+	public Player(Player gamer) {
+		super();
+		this.score = gamer.score;
+		this.lives = gamer.lives;
+		this.intop10 = gamer.intop10;
+		this.name = gamer.name;
+		this.place = gamer.place;		
+	}
 		
+	public Player() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
 	public int getScore() {
 		return score;
 	}
