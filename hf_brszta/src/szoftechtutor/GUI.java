@@ -254,10 +254,21 @@ public class GUI {
 			if (ctrl.isGameOver() && !ctrl.isNetworkGame())
 				{
 				graphics.setColor(Color.red);
-				graphics.setFont(new Font("serif", Font.BOLD, 50));
-				graphics.drawString("GAME OVER", 350, 300);
-				graphics.setFont(new Font("serif", Font.BOLD, 40));
-				graphics.drawString("Your score:  " +ctrl.jatekos.getScore(), 380, 500);
+				if(!ctrl.jatekos.isIntop10()){
+					graphics.setFont(new Font("serif", Font.BOLD, 50));
+					graphics.drawString("GAME OVER", 350, 300);
+					graphics.setFont(new Font("serif", Font.BOLD, 40));
+					graphics.drawString("Your score:  " +ctrl.jatekos.getScore(), 380, 500);
+				} else {
+					graphics.setFont(new Font("serif", Font.BOLD, 50));
+					graphics.drawString("GAME OVER", 350, 100);
+					graphics.setFont(new Font("serif", Font.PLAIN, 40));
+					graphics.drawString("Place |  Score  |     Name", 300, 150);
+					for(int i=0; i<ctrl.listTop10.bestplayers.size();i++){
+						graphics.setFont(new Font("serif", Font.ITALIC, 40));
+						graphics.drawString("  "+ctrl.listTop10.bestplayers.get(i).getPlace()+".        "+ctrl.listTop10.bestplayers.get(i).getScore()+"       "+ctrl.listTop10.bestplayers.get(i).getName(), 300, (200+i*50));
+					}
+				}
 				}
 			else if(ctrl.isGameFinished()){
 				graphics.setColor(Color.green);
@@ -284,58 +295,58 @@ public class GUI {
 				graphics.setColor(Color.blue); // ütõ színének beállítása
 				graphics.fillRect(ctrl.uto.poz, 668, ctrl.uto.size_x, ctrl.uto.size_y);
 				
-				// vonal
-				graphics.setColor(Color.black); 
-				graphics.fillRect(0, 43, 1024, 2);
-				graphics.fillRect(0, 0, 1024, 43);
-				
-				//pálya száma
-		        graphics.setColor(Color.cyan);
-		        graphics.setFont(new Font("serif", Font.BOLD, 40));
-		        graphics.drawString("Level:", 80, 37);
-		        graphics.drawString(""+ctrl.palya.palya, 200, 37);
-		        
-		        //élet
-		        graphics.setColor(Color.red);
-		        graphics.setFont(new Font("serif", Font.BOLD, 40));
-				graphics.drawString("Lives:", 320, 37);
-		        graphics.drawString(""+ctrl.jatekos.lives, 440, 37);
-		        
-		        //pontozás
-				graphics.setColor(Color.orange);
-				graphics.setFont(new Font("serif", Font.BOLD, 40));
-				graphics.drawString("Score:", 550, 37);
-		        graphics.drawString(""+ctrl.jatekos.score, 670, 37);
-	        
-		        //eltelt ido
-		        graphics.setColor(Color.green);
-		        graphics.setFont(new Font("serif", Font.BOLD, 40));
-		        graphics.drawString("Time:", 795, 37);
-		        graphics.drawString(""+ctrl.eltelt_ido, 915, 37);
+     
 	        
 	        
-	        
-	        // téglák
-	        // j-> sorok száma    i-> oszlopok száma
-	        for(int i = 0; i<5; ++i){
-	        	for(int j = 0; j<6; ++j) {
-	        		if(Wall.destroyed[i][j] > 0){
-	        			
-	        			// Az egy életû téglák feketék
-	        			if(Wall.destroyed[i][j] == 1){
-	        				graphics.setColor(Color.black);
-	        				graphics.fillRect((ctrl.palya.tegla_szelesseg+ctrl.palya.tegla_tavolsag_x)*i+ctrl.palya.tegla_eltolas_x,(ctrl.palya.tegla_magassag+ctrl.palya.tegla_tavolsag_y)*j+ctrl.palya.tegla_eltolas_y,ctrl.palya.tegla_szelesseg,ctrl.palya.tegla_magassag);
-	        			}
-	        			
-	        			// A két életû téglák pirosak
-	        			if(Wall.destroyed[i][j] == 2){
-	        				graphics.setColor(Color.red);
-	        				graphics.fillRect((ctrl.palya.tegla_szelesseg+ctrl.palya.tegla_tavolsag_x)*i+ctrl.palya.tegla_eltolas_x,(ctrl.palya.tegla_magassag+ctrl.palya.tegla_tavolsag_y)*j+ctrl.palya.tegla_eltolas_y,ctrl.palya.tegla_szelesseg,ctrl.palya.tegla_magassag);
-	        			}
-	        		}
-	        	}
-	        }
+		        // téglák
+		        // j-> sorok száma    i-> oszlopok száma
+		        for(int i = 0; i<5; ++i){
+		        	for(int j = 0; j<6; ++j) {
+		        		if(Wall.destroyed[i][j] > 0){
+		        			
+		        			// Az egy életû téglák feketék
+		        			if(Wall.destroyed[i][j] == 1){
+		        				graphics.setColor(Color.black);
+		        				graphics.fillRect((ctrl.palya.tegla_szelesseg+ctrl.palya.tegla_tavolsag_x)*i+ctrl.palya.tegla_eltolas_x,(ctrl.palya.tegla_magassag+ctrl.palya.tegla_tavolsag_y)*j+ctrl.palya.tegla_eltolas_y,ctrl.palya.tegla_szelesseg,ctrl.palya.tegla_magassag);
+		        			}
+		        			
+		        			// A két életû téglák pirosak
+		        			if(Wall.destroyed[i][j] == 2){
+		        				graphics.setColor(Color.red);
+		        				graphics.fillRect((ctrl.palya.tegla_szelesseg+ctrl.palya.tegla_tavolsag_x)*i+ctrl.palya.tegla_eltolas_x,(ctrl.palya.tegla_magassag+ctrl.palya.tegla_tavolsag_y)*j+ctrl.palya.tegla_eltolas_y,ctrl.palya.tegla_szelesseg,ctrl.palya.tegla_magassag);
+		        			}
+		        		}
+		        	}
+		        }
 			}
+			// vonal
+			graphics.setColor(Color.black); 
+			graphics.fillRect(0, 43, 1024, 2);
+			graphics.fillRect(0, 0, 1024, 43);
+			
+			//pálya száma
+	        graphics.setColor(Color.cyan);
+	        graphics.setFont(new Font("serif", Font.BOLD, 40));
+	        graphics.drawString("Level:", 80, 37);
+	        graphics.drawString(""+ctrl.palya.palya, 200, 37);
+	        
+	        //élet
+	        graphics.setColor(Color.red);
+	        graphics.setFont(new Font("serif", Font.BOLD, 40));
+			graphics.drawString("Lives:", 320, 37);
+	        graphics.drawString(""+ctrl.jatekos.lives, 440, 37);
+	        
+	        //pontozás
+			graphics.setColor(Color.orange);
+			graphics.setFont(new Font("serif", Font.BOLD, 40));
+			graphics.drawString("Score:", 550, 37);
+	        graphics.drawString(""+ctrl.jatekos.score, 670, 37);
+        
+	        //eltelt ido
+	        graphics.setColor(Color.green);
+	        graphics.setFont(new Font("serif", Font.BOLD, 40));
+	        graphics.drawString("Time:", 795, 37);
+	        graphics.drawString(""+ctrl.eltelt_ido, 915, 37);
 			}
 			
 	}

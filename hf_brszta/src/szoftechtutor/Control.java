@@ -101,7 +101,7 @@ public class Control implements ActionListener, MouseListener, MouseMotionListen
 	if (net != null)
 		net.disconnect();
 	net = new SerialServer(this);
-	//net.connect("192.168.0.102");
+	//net.connect("192.168.2.100");
 	net.connect("localhost");
 	}
 	
@@ -109,7 +109,7 @@ public class Control implements ActionListener, MouseListener, MouseMotionListen
 	if (net != null)
 		net.disconnect();
 	net = new SerialClient(this);
-	//net.connect("192.168.0.102");
+	//net.connect("192.168.2.100");
 	net.connect("localhost");
 	}	
 	
