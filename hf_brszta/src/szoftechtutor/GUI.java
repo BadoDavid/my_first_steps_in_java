@@ -273,9 +273,13 @@ public class GUI {
 			else if(ctrl.isGameFinished()){
 				graphics.setColor(Color.green);
 				graphics.setFont(new Font("serif", Font.BOLD, 50));
-				graphics.drawString("YOU WIN", 390, 300);
-				graphics.setFont(new Font("serif", Font.BOLD, 40));
-				graphics.drawString("Your score:  " +ctrl.jatekos.getScore(), 380, 500);
+				graphics.drawString("YOU WIN", 390, 100);
+				graphics.setFont(new Font("serif", Font.PLAIN, 40));
+				graphics.drawString("Place |  Score  |     Name", 300, 150);
+				for(int i=0; i<ctrl.listTop10.bestplayers.size();i++){
+					graphics.setFont(new Font("serif", Font.ITALIC, 40));
+					graphics.drawString("  "+ctrl.listTop10.bestplayers.get(i).getPlace()+".        "+ctrl.listTop10.bestplayers.get(i).getScore()+"       "+ctrl.listTop10.bestplayers.get(i).getName(), 300, (200+i*50));
+				}
 			}
 			else if (ctrl.isNetworkGame()){
 				String message = ctrl.getNetworkMessage();

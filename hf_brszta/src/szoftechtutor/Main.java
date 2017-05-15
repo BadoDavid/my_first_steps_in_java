@@ -104,69 +104,6 @@ public class Main {
         	}
         }
         
-		
-		
-		/*
-		 * az eredeti Main felépítése
-		 * 
-		JFrame window = new JFrame(); // Ablak létrehozása
-		window.setTitle("Faltoro"); // Ablak neve
-		window.setSize(d); // Ablak mérete
-		window.setMaximumSize(d); // Ablak ne legyen átméretezhetõ
-		window.setMinimumSize(d);
-        window.setVisible(true); // Ablak láthatóvá tétele
-        window.setLocationRelativeTo(null); // Ablak elhelyezése a képeryõ közepén
-        window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE); // memória takarítás bezáráskor
-        
-
-        
-        faltoro faltoro = new faltoro(); // Új faltoro létrehozása
-        window.add(faltoro); // hozzáadása az ablakhoz
-        
-        window.addMouseMotionListener(faltoro); // egér mûködtetése
-        window.addMouseListener(faltoro);
-        window.addKeyListener(faltoro);
-        
-		JMenuBar menuBar = new JMenuBar();
-
-		JMenu menu = new JMenu("Start");
-		
-		JMenuItem menuItem = new JMenuItem("Single Player");
-		menuItem.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				faltoro.click=true;
-			}
-		});
-		menu.add(menuItem);
-
-		menuItem = new JMenuItem("Client");
-		menuItem.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				faltoro.startClient();
-			}
-		});
-		menu.add(menuItem);
-
-		menuItem = new JMenuItem("Server");
-		menuItem.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				faltoro.startServer();
-			}
-		});
-		menu.add(menuItem);
-		
-		menuBar.add(menu);
-		
-		window.setJMenuBar(menuBar);
-		
-        Timer timer = new Timer(faltoro.jatek_sebessege, faltoro); // ciklikus lefutás
-        timer.start();
-        
-        Control.palyafelepites(5);	
-        */
 	
 	}
     
